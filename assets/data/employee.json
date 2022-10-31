@@ -1,0 +1,32 @@
+{
+    "employees" : [
+        {
+            "id" : 1,
+            "firstName" : "Sneha",
+            "lastName"  : "Shaji",
+            "designation" : "Developer Intern",
+            "dateOfJoining" : "",
+            "dateOfBirth" : "",
+            "address" : {
+                "line1" : "",
+                "line2" : ""
+            },
+            "emailId" : "",
+            "skills"  : ["skillId","skillId"]
+        },
+        {
+            "id" : 2,
+            "firstName" : "mekha",
+            "lastName"  : "Shaji",
+            "designation" : "Developer Intern",
+            "dateOfJoining" : "",
+            "dateOfBirth" : "",
+            "address" : {
+                "line1" : "",
+                "line2" : ""
+            },
+            "emailId" : "",
+            "skills"  : ["skillId","skillId"]
+        }
+    ]
+}
