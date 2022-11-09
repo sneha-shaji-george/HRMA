@@ -87,7 +87,7 @@ function successOk() {
 }
 
 //function to display success message after updating employee details
-function successMessageUpdation() {
+function showSuccessDialog() {
   const updateModalBox = document.querySelector(".view-modal");
   const button = document.querySelector("#update-submit-button");
   const modalBox = document.querySelector(".success-modal-updation");
@@ -247,8 +247,9 @@ function populateSkillCheckbox(empDetails, id) {
 window.onload = () => {
   fetchEmployees();
   fetchSkills();
-  successMessageUpdation();
+  showSuccessDialog();
   generateSkillSelectionUI();
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
 };
+
