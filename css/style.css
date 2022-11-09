@@ -1,190 +1,215 @@
 body {
-  margin: 0px;
-  background-color: #fae7c7;
-}
-header {
-  background-color: #fae7c7;
-  border-bottom: 2px solid #00000030;
-  box-shadow: 0 0 5px 2px #00000030;
-  padding-left: 21px;
-  /* margin-bottom: 5px; */
-  /* padding-bottom: 10px; */
-  display: flex;
+    margin: 0px;
+    background-color: #fae7c7;
 }
 
-.hamburger{
-  padding-left: 850px;
-  padding-top: 39px;
+header {
+    background-color: #fae7c7;
+    border-bottom: 2px solid #00000030;
+    box-shadow: 0 0 5px 2px #00000030;
+    padding-left: 21px;
+    display: flex;
+}
+
+.hamburger {
+    padding-left: calc(100% - 550px);
+    padding-top: 39px;
 }
 
 #logo {
-  padding-top: 20px;
-  padding-left: 21px;
+    padding-top: 20px;
+    padding-left: 21px;
 }
+
+#skills{
+    display: none;
+}
+
 main {
-  margin-top: 80px;
+    margin-top: 80px;
 }
+
 h1 {
-  padding-left: 10px;
-  /* padding-bottom: 10px; */
-  /* color: #4f3eca; */
-  margin-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
 }
+
 .employee-management {
-  display: flex;
-  justify-content: space-between;
-  /* padding-left: 10px;
-  padding-right: 10px; */
-  padding-bottom: 20px;
-  padding-right: 21px;
-  padding-left: 21px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    padding-right: 21px;
+    padding-left: 21px;
 }
 
 th {
-  background-color: #011c34;
-  text-align: left;
-  font-size: medium;
-  color: white;
-  padding: 10px;
+    background-color: #011c34;
+    text-align: left;
+    font-size: medium;
+    color: white;
+    padding: 10px;
 }
 
 td {
-  background-color: rgb(217 192 168);
-  text-align: left;
-  font-size: medium;
-  color: black;
-  padding: 10px;
+    background-color: rgb(217 192 168);
+    text-align: left;
+    font-size: medium;
+    color: black;
+    padding: 10px;
 }
 
 table {
-  width: 100%;
-  padding: 20px;
+    width: 100%;
+    padding: 20px;
 }
+
 .icons {
-  display: flex;
-  justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .update-modal,
 .add-modal,
 .view-modal {
-  display: none;
-  background-color: aliceblue;
-  max-width: 615px;
-  max-height: 640px;
-  margin: 0 auto;
-  height: 100%;
+    display: none;
+    background-color: aliceblue;
+    max-width: 615px;
+    max-height: 640px;
+    margin: 0 auto;
+    height: 100%;
 }
 
 .modal-one,
-.modal-two,
-.modal-three,
-.modal-four {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0px auto;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+.modal-add,
+.modal-edit-view,
+.modal-delete {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.view-modal form input{
-  display: none;
+.view-modal form input {
+    /* border: none; */
+    background-color: aliceblue;
+}
+
+label {
+    width: max-content;
 }
 
 .close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  margin-right: 15px;
-  margin-top: 10px;
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 15px;
+    margin-top: 10px;
 }
+
 .close:hover,
 .close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
+
 form {
-  margin: 48px auto;
-  width: 300px;
-  display: flex;
+    margin: 48px auto;
+    width: 300px;
+    display: flex;
 }
+
 h2 {
-  text-align: center;
-  padding-top: 68px;
-  color: black;
-}
-.label,
-.inputs {
-  display: flex;
-  flex-direction: column;
-}
-.label {
-  gap: 29px;
+    text-align: center;
+    padding-top: 68px;
+    color: black;
 }
 
-.inputs {
-  gap: 26px;
-  margin-left: 23px;
+
+#label-add,
+#inputs-add,
+#label-edit-view,
+#inputs-edit-view {
+    display: flex;
+    flex-direction: column;
 }
 
-.update-submit-button,
-.add-submit-button {
-  text-align: center;
-  margin-left: 243px;
+
+#label-add,
+#label-edit-view {
+    gap: 29px;
+}
+
+
+#inputs-add,
+#inputs-edit-view {
+    gap: 26px;
+    margin-left: 23px;
+}
+
+#update-submit-button,
+#add-submit-button {
+    text-align: center;
+    margin-left: 243px;
+}
+
+#update-submit-button {
+    display: none;
 }
 
 .success-img,
 h4,
 h3 {
-  text-align: center;
+    text-align: center;
 }
 
 .success-modal,
 .success-modal-updation,
 .delete-updation,
 .success-modal-deletion {
-  background-color: white;
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  right: 0;
-  max-width: 587px;
-  width: 100%;
-  /* height: 100%; */
-  margin: 60px auto;
-  overflow: auto;
-  background-color: white;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  /* display: block; */
-  max-height: 640px;
-  /* background-color: rgba(0,0,0,0.4); */
+    background-color: white;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    right: 0;
+    max-width: 587px;
+    width: 100%;
+    margin: 60px auto;
+    overflow: auto;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-height: 640px;
 }
+
 .add-success-button,
-.update-success-button,
+.fupdate-success-button,
 .delete-success-button {
-  background-color: #4fbf26;
-  border-radius: 5px;
+    background-color: #4fbf26;
+    border-radius: 5px;
 }
+
 .success {
-  text-align: center;
+    text-align: center;
 }
 
 .buttons-confirmation {
-  text-align: center;
+    text-align: center;
 }
 
-.sort-button,.filter-button,.add-button{
-  padding: 3px;
+.sort-button,
+.filter-button,
+.add-button {
+    padding: 3px;
 }

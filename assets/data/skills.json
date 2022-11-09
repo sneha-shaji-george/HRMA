@@ -2,11 +2,19 @@
     "skills" : [
     {
         "skillId" : 1,
-        "skill" : ""
+        "skill" : "React"
     },
     {
         "skillId" : 2,
-        "skill" : ""
+        "skill" : "Python"
+    },
+    {
+        "skillId" : 3,
+        "skill" : "Django"
+    },
+    {
+        "skillId" : 4,
+        "skill" : "NodeJS"
     }
 ]
 }
