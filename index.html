@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Human Resource Management</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <a  href="#"><img id="logo" src="assets/images/logo.png" alt="#"></a>
+        </div>
+        <span class="hamburger" style="font-size:30px;cursor:pointer">&#9776; </span>
+    </header>
+    <main>
+        <section class="employee-management">
+            <div class="sort-filter">
+                <button class="sort-button" type="button">Sort By <i class="fa fa-angle-down"></i></button>
+                <button class="filter-button" type="button">Filter By <i class="fa fa-angle-down"></i></button>
+            </div>
+            <div class="add">
+                <button class="add-button" type="button" onclick="addModal()">Add <i class="fa fa-plus"></i></button>
+            </div>
+        </section>
+        <section class="employee-table">
+            <table id="empTable">
+                <tr>
+                    <th>Employee Id</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                    <th>Email</th>
+                    <th>Skills</th>
+                    <th></th>
+                </tr>
+            </table>
+        </section>
+        <section class="modal-add">
+            <div class="add-modal">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Add Employee</h2>
+                <form>
+                    <div id="label-add">
+                        <label for="fname">First name:</label>
+                        <label for="lname">Last name:</label>
+                        <label for="des">Designation:</label>
+                        <label for="doj">Date Of Joining:</label>
+                        <label for="addr">Address:</label>
+                        <label for="dob">Date Of Birth:</label>
+                        <label for="mail">Email:</label>
+                        <label for="skills">Skills:</label>
+                    </div>
+                    <div id="inputs-add">
+                        <input type="text" id="fname" name="fname">
+                        <input type="text" id="lname" name="lname">
+                        <input type="text" id="des" name="des">
+                        <input type="date" id="doj" name="doj">
+                        <input type="text" id="addr" name="addr">
+                        <input type="date" id="dob" name="dob">
+                        <input type="email" id="mail" name="mail">
+                        <input type="text" id="skills-add" name="skills">
+                    </div>
+                </form>
+                <button id="add-submit-button" type="submit" form="update-form" value="Submit" onclick ="successMessage()">ADD</button>
+            </div>
+        </section>
+        <section class="modal-edit-view">
+            <div class="view-modal">
+                <span class="close" onclick="closeEmployeeManageModal()">&times;</span>
+                <h2 id="modal-heading"></h2>
+                <form id = "modal-form">
+                    <div id="label-edit-view">
+                        <label for="fname">First name:</label>
+                        <label for="lname">Last name:</label>
+                        <label for="des">Designation:</label>
+                        <label for="doj">Date Of Joining:</label>
+                        <label for="addr">Address:</label>
+                        <label for="dob">Date Of Birth:</label>
+                        <label for="mail">Email:</label>
+                        <label for="skills">Skills:</label>
+                    </div>
+                    <div id="inputs-edit-view">
+                        <input type="text" id="fname" name="fname">
+                        <input type="text" id="lname" name="lname">
+                        <input type="text" id="des" name="des">
+                        <input type="text" id="doj" name="doj">
+                        <input type="text" id="addr" name="addr">
+                        <input type="text" id="dob" name="dob">
+                        <input type="email" id="mail" name="mail">
+                        <input type="text" id="skills" name="skills">
+                        <div id="search-container">
+                        </div>
+                        
+                    </div>
+                </form>
+                <button id ="update-submit-button" type="submit" form="update-form" value="Submit">Save Changes</button>
+            
+            </div>
+        </section>
+            <div class="success-modal">
+                <div class="success-img"><img src="assets/images/icons8-ok-48.png"></div>
+                <h3>Successfully</h3>
+                <h4>Added New Employee</h4>
+                <div class="success">
+                <button class="add-success-button" type="submit" form="update-form" value="Submit" onclick ="successOk()">OK</button>
+                </div>
+            </div>
+            <div class="success-modal-updation">
+                <div class="success-img"><img src="assets/images/icons8-ok-48.png"></div>
+                <h3>Successfully</h3>
+                <h4>Updated Employee Details</h4>
+                <div class="success">
+                <button class="update-success-button" type="submit" form="update-form" value="Submit" onclick="successOkUpdate()">Ok</button>
+                </div>
+            </div>
+            <div class = "modal-delete">
+            <div class="delete-updation">
+                <h3>Are you sure you wanted to delete this employee ?</h3>
+                <div class="buttons-confirmation">
+                <button class="no-button" type="submit" form="update-form" value="Submit" onclick="noConfirm()">No</button>
+                <button class="yes-button" type="submit" form="update-form" value="Submit" onclick="yesConfirm()">Yes</button> 
+                </div>
+            </div>
+            </div>
+            <div class="success-modal-deletion">
+                <div class="success-img"><img src="assets/images/icons8-ok-48.png"></div>
+                <h3>Successfully</h3>
+                <h4>Deleted the Employee</h4>
+                <div class="success">
+                <button class="delete-success-button" type="submit" form="update-form" value="Submit" onclick="successDelete()">Ok</button>
+                </div>
+            </div>
+
+    </main>
+    <script src="js/app.js" ></script>
+</body>
+
+</html>

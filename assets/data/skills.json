@@ -1,0 +1,20 @@
+{
+    "skills" : [
+    {
+        "skillId" : 1,
+        "skill" : "React"
+    },
+    {
+        "skillId" : 2,
+        "skill" : "Python"
+    },
+    {
+        "skillId" : 3,
+        "skill" : "Django"
+    },
+    {
+        "skillId" : 4,
+        "skill" : "NodeJS"
+    }
+]
+}
