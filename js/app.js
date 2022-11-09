@@ -1,13 +1,14 @@
-const empData = () => {
+const fetchEmployees= () => {
   fetch("assets/data/employee.json")
     .then((response) => response.json())
     .then((data) => {
       const empDetails = data["employees"];
       localStorage.setItem("employData", JSON.stringify(empDetails));
+      createTable(empDetails)
     });
 };
 
-const skillData = () => {
+const fetchSkills = () => {
   fetch("assets/data/skills.json")
     .then((response) => response.json())
     .then((data) => {
@@ -17,9 +18,8 @@ const skillData = () => {
 };
 
 // function to create employee listing table and load employee details to it
-function createTable() {
+function createTable(empDetails) {
   const employeeTable = document.querySelector("#empTable");
-  const empDetails = JSON.parse(localStorage.getItem("employData"));
   empDetails.forEach((data) => {
     const arr = [];
     const row = document.createElement("tr");
@@ -75,11 +75,11 @@ function closeModal() {
 function successMessage() {
   const addModalBox = document.querySelector(".add-modal");
   const modalBox = document.querySelector(".success-modal");
-    addModalBox.style.display = "none";
-    modalBox.style.display = "block";
+  addModalBox.style.display = "none";
+  modalBox.style.display = "block";
 }
 
-function successOk(){
+function successOk() {
   const modalDiv = document.querySelector(".modal-add");
   const modalBox = document.querySelector(".success-modal");
   modalBox.style.display = "none";
@@ -96,7 +96,7 @@ function successMessageUpdation() {
     modalBox.style.display = "block";
   });
 }
-function successOkUpdate(){
+function successOkUpdate() {
   const modalBox = document.querySelector(".success-modal-updation");
   const modalDiv = document.querySelector(".modal-edit-view");
   modalBox.style.display = "none";
@@ -117,19 +117,19 @@ function deleteEmployee() {
 }
 
 //function to display cofirmation msg before deleting
-function  noConfirm(){
+function noConfirm() {
   const modalDiv = document.querySelector(".modal-delete");
   const confirmationBox = document.querySelector(".delete-updation");
   confirmationBox.style.display = "none";
   modalDiv.style.display = "none";
 }
-function yesConfirm(){
+function yesConfirm() {
   const confirmationBox = document.querySelector(".delete-updation");
   const successDeletion = document.querySelector(".success-modal-deletion");
   confirmationBox.style.display = "none";
   successDeletion.style.display = "block";
 }
-function successDelete(){
+function successDelete() {
   const modalDiv = document.querySelector(".modal-delete");
   const successDeletion = document.querySelector(".success-modal-deletion");
   successDeletion.style.display = "none";
@@ -154,7 +154,7 @@ function employeeDetails(empDetails) {
 }
 
 //function  to generate app name
-function header() {
+function getAppHeaderText() {
   const parent = document.querySelector(".header-container");
   const appName = document.createElement("h1");
   appName.innerHTML = localStorage.getItem("appName");
@@ -207,18 +207,18 @@ function employManagementModal(empDetails, target, isEdit) {
     parent.querySelector("#skills").style.display = "block";
     document.querySelector("#search-container").style.display = "none";
   }
-  checkedBox(empDetails, empId);
+  populateSkillCheckbox(empDetails, empId);
 }
 
 //function to close edit and view modal
-function closeEmployeeManageModal(){
+function closeEmployeeManageModal() {
   const modalBox = document.querySelector(".view-modal");
   const modalDiv = document.querySelector(".modal-edit-view");
   modalBox.style.display = "none";
-  modalDiv.style.display = "none";  
+  modalDiv.style.display = "none";
 }
 // function to checkbox for skills
-function selectSkill() {
+function generateSkillSelectionUI() {
   const skillData = JSON.parse(localStorage.getItem("skillData"));
   const parent = document.querySelector("#search-container");
   skillData.forEach((item) => {
@@ -235,24 +235,20 @@ function selectSkill() {
 }
 
 // function to create checked skillbox
-function checkedBox(empDetails, id) {
+function populateSkillCheckbox(empDetails, id) {
   const parent = document.querySelectorAll("#search-container input");
   const empskills = empDetails.find((emp) => emp.id == id);
   const empSkillArr = empskills.skills.map((skill) => skill.skill);
   parent.forEach((item) => {
-    item.checked = false;
-    if (empSkillArr.includes(item.name)) {
-      item.checked = "true";
-    }
+    item.checked = empSkillArr.includes(item.name);
   });
 }
 
 window.onload = () => {
-  empData();
-  skillData();
-  createTable();
+  fetchEmployees();
+  fetchSkills();
   successMessageUpdation();
-  selectSkill();
-  header();
+  generateSkillSelectionUI();
   localStorage.setItem("appName", "Human Resource Management App");
+  getAppHeaderText();
 };
