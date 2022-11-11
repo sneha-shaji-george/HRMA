@@ -17,45 +17,18 @@ const fetchSkills = () => {
     });
 };
 
-// function to create employee listing table and load employee details to it
+
+
 function createTable(empDetails) {
-  const employeeTable = document.querySelector("#empTable");
   empDetails.forEach((data) => {
-    const arr = [];
-    const row = document.createElement("tr");
-    const skillField = document.createElement("td");
-    const actionField = document.createElement("td");
-    const viewIcon = document.createElement("i");
-    const editIcon = document.createElement("i");
-    const deleteIcon = document.createElement("i");
-    const iconDiv = document.createElement("div");
-    viewIcon.setAttribute("class", "fa fa-eye view");
-    viewIcon.setAttribute("id", `viewemp${data.id}`);
-    editIcon.setAttribute("class", "fa fa-pencil-square-o edit");
-    editIcon.setAttribute("id", `editemp${data.id}`);
-    deleteIcon.setAttribute("class", "fa fa-trash-o delete");
-    deleteIcon.setAttribute("id", `deletemp${data.id}`);
-    iconDiv.setAttribute("class", "icons");
-    row.innerHTML = `<td>${data.id}</td>
-        <td>${data.firstName} ${data.lastName}</td> 
-        <td>${data.designation}</td>
-        <td>${data.emailId}</td>`;
-    const skillName = document.createElement("p");
-    skillName.innerHTML = data.skills.map((skill) => skill.skill).join(", ");
-    skillField.appendChild(skillName);
-    row.appendChild(skillField);
-    iconDiv.appendChild(viewIcon);
-    iconDiv.appendChild(editIcon);
-    iconDiv.appendChild(deleteIcon);
-    actionField.appendChild(iconDiv);
-    row.appendChild(actionField);
-    employeeTable.appendChild(row);
+    addEmployeeRow(data,empDetails);
   });
   employeeDetails(empDetails);
   deleteEmployee();
 }
 
-//function to create modal box to add employee details
+
+
 function addModal() {
   const modalBox = document.querySelector(".modal-add");
   const modalDiv = modalBox.querySelector(".add-modal");
@@ -63,20 +36,12 @@ function addModal() {
   modalDiv.style.display = "block";
 }
 
-//function to close add modal
+
 function closeModal() {
   const modalBox = document.querySelector(".modal-add");
   const modalDiv = modalBox.querySelector(".add-modal");
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
-}
-
-//function to display success message after adding an employee
-function successMessage() {
-  const addModalBox = document.querySelector(".add-modal");
-  const modalBox = document.querySelector(".success-modal");
-  addModalBox.style.display = "none";
-  modalBox.style.display = "block";
 }
 
 function successOk() {
@@ -86,24 +51,8 @@ function successOk() {
   modalDiv.style.display = "none";
 }
 
-//function to display success message after updating employee details
-function showSuccessDialog() {
-  const updateModalBox = document.querySelector(".view-modal");
-  const button = document.querySelector("#update-submit-button");
-  const modalBox = document.querySelector(".success-modal-updation");
-  button.addEventListener("click", () => {
-    updateModalBox.style.display = "none";
-    modalBox.style.display = "block";
-  });
-}
-function successOkUpdate() {
-  const modalBox = document.querySelector(".success-modal-updation");
-  const modalDiv = document.querySelector(".modal-edit-view");
-  modalBox.style.display = "none";
-  modalDiv.style.display = "none";
-}
 
-//function to delete an employee
+
 function deleteEmployee() {
   const icon = document.querySelectorAll(".delete");
   const deleteMsg = document.querySelector(".delete-updation");
@@ -116,7 +65,8 @@ function deleteEmployee() {
   });
 }
 
-//function to display cofirmation msg before deleting
+
+
 function noConfirm() {
   const modalDiv = document.querySelector(".modal-delete");
   const confirmationBox = document.querySelector(".delete-updation");
@@ -135,7 +85,8 @@ function successDelete() {
   successDeletion.style.display = "none";
   modalDiv.style.display = "none";
 }
-//function to add eventlistener to view and edit buttons in table
+
+
 function employeeDetails(empDetails) {
   const viewButton = document.querySelectorAll(".view");
   const btn = document.querySelectorAll(".edit");
@@ -153,7 +104,8 @@ function employeeDetails(empDetails) {
   });
 }
 
-//function  to generate app name
+
+
 function getAppHeaderText() {
   const parent = document.querySelector(".header-container");
   const appName = document.createElement("h1");
@@ -161,7 +113,7 @@ function getAppHeaderText() {
   parent.appendChild(appName);
 }
 
-// function to display add and edit forms
+
 function employManagementModal(empDetails, target, isEdit) {
   const modalHeading = document.querySelector("#modal-heading");
   const parent = document.getElementById("inputs-edit-view");
@@ -210,14 +162,16 @@ function employManagementModal(empDetails, target, isEdit) {
   populateSkillCheckbox(empDetails, empId);
 }
 
-//function to close edit and view modal
+
+
 function closeEmployeeManageModal() {
   const modalBox = document.querySelector(".view-modal");
   const modalDiv = document.querySelector(".modal-edit-view");
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
 }
-// function to checkbox for skills
+
+
 function generateSkillSelectionUI() {
   const skillData = JSON.parse(localStorage.getItem("skillData"));
   const parent = document.querySelector("#search-container");
@@ -233,8 +187,116 @@ function generateSkillSelectionUI() {
     parent.appendChild(input);
   });
 }
+function generateSkillSelectionUItoAdd() {
+  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const parent = document.querySelector("#search-container-add");
+  skillData.forEach((item) => {
+    const input = document.createElement("input");
+    const skillLabel = document.createElement("label");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("id", `${item.skill}`);
+    input.setAttribute("name", `${item.skill}`);
+    skillLabel.setAttribute("for", `${item.skill}`);
+    skillLabel.innerHTML = `${item.skill}`;
+    parent.appendChild(skillLabel);
+    parent.appendChild(input);
+  });
+}
+generateSkillSelectionUItoAdd()
 
-// function to create checked skillbox
+
+function addEmployee() {
+  const empDetails = JSON.parse(localStorage.getItem("employData"));
+  const parent = document.querySelector("#inputs-add");
+  const inputAdd = document.querySelectorAll("#search-container-add input");
+  const skillData = JSON.parse(localStorage.getItem("skillData"))
+  const skillArr = []
+  console.log(inputAdd)
+  inputAdd.forEach(tag=>{
+    if (tag.checked){
+      console.log(tag);
+      const skillObj = skillData.find(skill => skill.skill === tag.name)
+      console.log(skillObj)
+     skillArr.push({skillId :skillObj.skillId,skill:skillObj.skill}) 
+    }
+  })
+  const newEmployee = {
+      id: parent.querySelector("#empid").value,
+      firstName: parent.querySelector("#fname").value,
+      lastName: parent.querySelector("#lname").value,
+      designation: parent.querySelector("#des").value,
+      dateOfJoining: parent.querySelector("#doj").value,
+      dateOfBirth: parent.querySelector("#dob").value,
+      address: parent.querySelector("#addr").value,
+      emailId: parent.querySelector("#mail").value,
+      skills: skillArr      
+  }
+  empDetails.push(newEmployee);
+  localStorage.setItem("employeeData", JSON.stringify(empDetails));
+  addEmployeeRow(newEmployee,empDetails);
+}
+
+function addEmployeeRow(data,empDetails){
+  const employeeTable = document.querySelector("#empTable");
+  const row = document.createElement("tr");
+    const skillField = document.createElement("td");
+    const actionField = document.createElement("td");
+    const viewIcon = document.createElement("i");
+    const editIcon = document.createElement("i");
+    const deleteIcon = document.createElement("i");
+    const iconDiv = document.createElement("div");
+    viewIcon.setAttribute("class", "fa fa-eye view");
+    viewIcon.setAttribute("id", `viewemp${data.id}`);
+    editIcon.setAttribute("class", "fa fa-pencil-square-o edit");
+    editIcon.setAttribute("id", `editemp${data.id}`);
+    deleteIcon.setAttribute("class", "fa fa-trash-o delete");
+    deleteIcon.setAttribute("id", `deletemp${data.id}`);
+    iconDiv.setAttribute("class", "icons");
+    row.innerHTML = `<td>${data.id}</td>
+        <td>${data.firstName} ${data.lastName}</td> 
+        <td>${data.designation}</td>
+        <td>${data.emailId}</td>`;
+    const skillName = document.createElement("p");
+    skillName.innerHTML = data.skills.map((skill) => skill.skill).join(", ");
+    skillField.appendChild(skillName);
+    row.appendChild(skillField);
+    iconDiv.appendChild(viewIcon);
+    iconDiv.appendChild(editIcon);
+    iconDiv.appendChild(deleteIcon);
+    actionField.appendChild(iconDiv);
+    row.appendChild(actionField);
+    employeeTable.appendChild(row);
+  ;
+  employeeDetails(empDetails);
+  deleteEmployee();
+}
+
+function addSubmission(){
+  const addSubmitButton = document.querySelector("#add-submit-button");
+  const addModal = document.querySelector(".add-modal");
+  const addForm = document.querySelector("#add-form");
+  const action ="add";
+  addSubmitButton.addEventListener("click",()=>{
+    addEmployee()
+    addForm.reset()
+    addModal.style.display="none";
+    showSuccessDialog(action)
+  })
+}
+
+
+function showSuccessDialog(action){
+  const parent = document.querySelector(".success-modal");
+  const successHeading = parent. querySelector("#success-msg");
+  const addModalDiv = document.querySelector(".modal-add");
+  parent.style.display = "block"
+  if(action == "add"){
+    successHeading.innerHTML = "Added New Employee";
+  }
+  addModalDiv.style.display="block";
+}
+
+
 function populateSkillCheckbox(empDetails, id) {
   const parent = document.querySelectorAll("#search-container input");
   const empskills = empDetails.find((emp) => emp.id == id);
@@ -247,7 +309,7 @@ function populateSkillCheckbox(empDetails, id) {
 window.onload = () => {
   fetchEmployees();
   fetchSkills();
-  showSuccessDialog();
+  addSubmission();
   generateSkillSelectionUI();
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
