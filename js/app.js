@@ -1,10 +1,9 @@
-const fetchEmployees= () => {
+const fetchEmployees = () => {
   fetch("assets/data/employee.json")
     .then((response) => response.json())
     .then((data) => {
       const empDetails = data["employees"];
       localStorage.setItem("employData", JSON.stringify(empDetails));
-      createTable(empDetails)
     });
 };
 
@@ -17,17 +16,16 @@ const fetchSkills = () => {
     });
 };
 
+localStorage.getItem("employData") === null && fetchEmployees();
 
-
-function createTable(empDetails) {
+function createTable() {
+  const empDetails = JSON.parse(localStorage.getItem("employData"));
   empDetails.forEach((data) => {
-    addEmployeeRow(data,empDetails);
+    addEmployeeRow(data, empDetails);
   });
   employeeDetails(empDetails);
-  deleteEmployee();
+  onclickDeleteIcon();
 }
-
-
 
 function addModal() {
   const modalBox = document.querySelector(".modal-add");
@@ -35,7 +33,6 @@ function addModal() {
   modalBox.style.display = "block";
   modalDiv.style.display = "block";
 }
-
 
 function closeModal() {
   const modalBox = document.querySelector(".modal-add");
@@ -51,41 +48,12 @@ function successOk() {
   modalDiv.style.display = "none";
 }
 
-
-
-function deleteEmployee() {
-  const icon = document.querySelectorAll(".delete");
-  const deleteMsg = document.querySelector(".delete-updation");
-  const modalDiv = document.querySelector(".modal-delete");
-  icon.forEach((item) => {
-    item.addEventListener("click", () => {
-      deleteMsg.style.display = "block";
-      modalDiv.style.display = "block";
-    });
-  });
-}
-
-
-
 function noConfirm() {
   const modalDiv = document.querySelector(".modal-delete");
   const confirmationBox = document.querySelector(".delete-updation");
   confirmationBox.style.display = "none";
   modalDiv.style.display = "none";
 }
-function yesConfirm() {
-  const confirmationBox = document.querySelector(".delete-updation");
-  const successDeletion = document.querySelector(".success-modal-deletion");
-  confirmationBox.style.display = "none";
-  successDeletion.style.display = "block";
-}
-function successDelete() {
-  const modalDiv = document.querySelector(".modal-delete");
-  const successDeletion = document.querySelector(".success-modal-deletion");
-  successDeletion.style.display = "none";
-  modalDiv.style.display = "none";
-}
-
 
 function employeeDetails(empDetails) {
   const viewButton = document.querySelectorAll(".view");
@@ -104,15 +72,12 @@ function employeeDetails(empDetails) {
   });
 }
 
-
-
 function getAppHeaderText() {
   const parent = document.querySelector(".header-container");
   const appName = document.createElement("h1");
   appName.innerHTML = localStorage.getItem("appName");
   parent.appendChild(appName);
 }
-
 
 function employManagementModal(empDetails, target, isEdit) {
   const modalHeading = document.querySelector("#modal-heading");
@@ -125,6 +90,7 @@ function employManagementModal(empDetails, target, isEdit) {
   modalDiv.style.display = "block";
   empDetails.forEach((item) => {
     if (empId == item.id) {
+      parent.querySelector("#empid").value = `${item.id}`;
       parent.querySelector("#fname").value = `${item.firstName}`;
       parent.querySelector("#lname").value = `${item.lastName}`;
       parent.querySelector("#des").value = `${item.designation}`;
@@ -139,6 +105,7 @@ function employManagementModal(empDetails, target, isEdit) {
       });
     }
   });
+  parent.querySelector("#empid").readOnly = !isEdit;
   parent.querySelector("#fname").readOnly = !isEdit;
   parent.querySelector("#lname").readOnly = !isEdit;
   parent.querySelector("#des").readOnly = !isEdit;
@@ -159,10 +126,8 @@ function employManagementModal(empDetails, target, isEdit) {
     parent.querySelector("#skills").style.display = "block";
     document.querySelector("#search-container").style.display = "none";
   }
-  populateSkillCheckbox(empDetails, empId);
+  populateSkillCheckbox(empId);
 }
-
-
 
 function closeEmployeeManageModal() {
   const modalBox = document.querySelector(".view-modal");
@@ -170,7 +135,6 @@ function closeEmployeeManageModal() {
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
 }
-
 
 function generateSkillSelectionUI() {
   const skillData = JSON.parse(localStorage.getItem("skillData"));
@@ -187,6 +151,7 @@ function generateSkillSelectionUI() {
     parent.appendChild(input);
   });
 }
+
 function generateSkillSelectionUItoAdd() {
   const skillData = JSON.parse(localStorage.getItem("skillData"));
   const parent = document.querySelector("#search-container-add");
@@ -202,25 +167,27 @@ function generateSkillSelectionUItoAdd() {
     parent.appendChild(input);
   });
 }
-generateSkillSelectionUItoAdd()
-
+generateSkillSelectionUItoAdd();
 
 function addEmployee() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   const parent = document.querySelector("#inputs-add");
   const inputAdd = document.querySelectorAll("#search-container-add input");
-  const skillData = JSON.parse(localStorage.getItem("skillData"))
-  const skillArr = []
-  console.log(inputAdd)
-  inputAdd.forEach(tag=>{
-    if (tag.checked){
-      console.log(tag);
-      const skillObj = skillData.find(skill => skill.skill === tag.name)
-      console.log(skillObj)
-     skillArr.push({skillId :skillObj.skillId,skill:skillObj.skill}) 
-    }
-  })
-  const newEmployee = {
+  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const skillArr = [];
+  const firstName = parent.querySelector("#fname").value;
+  const lastName = parent.querySelector("#lname").value;
+  const email = parent.querySelector("#mail").value;
+  const value = formValidation(firstName, lastName, email);
+  if (value) {
+    inputAdd.forEach((tag) => {
+      if (tag.checked) {
+        const skillObj = skillData.find((skill) => skill.skill === tag.name);
+
+        skillArr.push({ skillId: skillObj.skillId, skill: skillObj.skill });
+      }
+    });
+    const newEmployee = {
       id: parent.querySelector("#empid").value,
       firstName: parent.querySelector("#fname").value,
       lastName: parent.querySelector("#lname").value,
@@ -229,75 +196,143 @@ function addEmployee() {
       dateOfBirth: parent.querySelector("#dob").value,
       address: parent.querySelector("#addr").value,
       emailId: parent.querySelector("#mail").value,
-      skills: skillArr      
+      skills: skillArr,
+    };
+    empDetails.push(newEmployee);
+    localStorage.setItem("employData", JSON.stringify(empDetails));
+    addEmployeeRow(newEmployee, empDetails);
   }
-  empDetails.push(newEmployee);
-  localStorage.setItem("employeeData", JSON.stringify(empDetails));
-  addEmployeeRow(newEmployee,empDetails);
 }
 
-function addEmployeeRow(data,empDetails){
-  const employeeTable = document.querySelector("#empTable");
+function addEmployeeRow(data, empDetails) {
+  const tableBody = document.querySelector("#table-body");
   const row = document.createElement("tr");
-    const skillField = document.createElement("td");
-    const actionField = document.createElement("td");
-    const viewIcon = document.createElement("i");
-    const editIcon = document.createElement("i");
-    const deleteIcon = document.createElement("i");
-    const iconDiv = document.createElement("div");
-    viewIcon.setAttribute("class", "fa fa-eye view");
-    viewIcon.setAttribute("id", `viewemp${data.id}`);
-    editIcon.setAttribute("class", "fa fa-pencil-square-o edit");
-    editIcon.setAttribute("id", `editemp${data.id}`);
-    deleteIcon.setAttribute("class", "fa fa-trash-o delete");
-    deleteIcon.setAttribute("id", `deletemp${data.id}`);
-    iconDiv.setAttribute("class", "icons");
-    row.innerHTML = `<td>${data.id}</td>
+  row.setAttribute("id", `row${data.id}`);
+  const skillField = document.createElement("td");
+  const actionField = document.createElement("td");
+  const viewIcon = document.createElement("i");
+  const editIcon = document.createElement("i");
+  const deleteIcon = document.createElement("i");
+  const iconDiv = document.createElement("div");
+  skillField.setAttribute("id", "skill-field");
+  actionField.setAttribute("id", "action-field");
+  viewIcon.setAttribute("class", "fa fa-eye view");
+  viewIcon.setAttribute("id", `viewemp${data.id}`);
+  editIcon.setAttribute("class", "fa fa-pencil-square-o edit");
+  editIcon.setAttribute("id", `editemp${data.id}`);
+  deleteIcon.setAttribute("class", "fa fa-trash-o delete");
+  deleteIcon.setAttribute("id", `deletemp${data.id}`);
+  iconDiv.setAttribute("class", "icons");
+  row.innerHTML = `<td>${data.id}</td>
         <td>${data.firstName} ${data.lastName}</td> 
         <td>${data.designation}</td>
         <td>${data.emailId}</td>`;
-    const skillName = document.createElement("p");
-    skillName.innerHTML = data.skills.map((skill) => skill.skill).join(", ");
-    skillField.appendChild(skillName);
-    row.appendChild(skillField);
-    iconDiv.appendChild(viewIcon);
-    iconDiv.appendChild(editIcon);
-    iconDiv.appendChild(deleteIcon);
-    actionField.appendChild(iconDiv);
-    row.appendChild(actionField);
-    employeeTable.appendChild(row);
-  ;
+  const skillName = document.createElement("p");
+  skillName.innerHTML = data.skills.map((skill) => skill.skill).join(", ");
+  skillField.appendChild(skillName);
+  row.appendChild(skillField);
+  iconDiv.appendChild(viewIcon);
+  iconDiv.appendChild(editIcon);
+  iconDiv.appendChild(deleteIcon);
+  actionField.appendChild(iconDiv);
+  row.appendChild(actionField);
+  tableBody.appendChild(row);
   employeeDetails(empDetails);
-  deleteEmployee();
+  onclickDeleteIcon();
 }
 
-function addSubmission(){
+function addSubmission() {
   const addSubmitButton = document.querySelector("#add-submit-button");
   const addModal = document.querySelector(".add-modal");
   const addForm = document.querySelector("#add-form");
-  const action ="add";
-  addSubmitButton.addEventListener("click",()=>{
-    addEmployee()
-    addForm.reset()
-    addModal.style.display="none";
-    showSuccessDialog(action)
-  })
+  const action = "add";
+  addSubmitButton.addEventListener("click", () => {
+    addEmployee();
+    addForm.reset();
+    addModal.style.display = "none";
+    showSuccessDialog(action);
+  });
 }
 
-
-function showSuccessDialog(action){
+function showSuccessDialog(action) {
   const parent = document.querySelector(".success-modal");
-  const successHeading = parent. querySelector("#success-msg");
+  const successHeading = parent.querySelector("#success-msg");
   const addModalDiv = document.querySelector(".modal-add");
-  parent.style.display = "block"
-  if(action == "add"){
+  parent.style.display = "block";
+  if (action == "add") {
     successHeading.innerHTML = "Added New Employee";
+  } else if (action == "delete") {
+    successHeading.innerHTML = "Deleted the Employee";
+  } else if (action == "edit") {
+    successHeading.innerHTML = "Updated Employee Details";
   }
-  addModalDiv.style.display="block";
+  addModalDiv.style.display = "block";
 }
 
+function saveUpdatedDetails() {
+  const parent = document.querySelector("#inputs-edit-view ");
+  const empId = parent.querySelector("#empid").value;
+  const empDetails = JSON.parse(localStorage.getItem("employData"));
+  const inputAdd = document.querySelectorAll("#search-container input");
+  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const modalBox = document.querySelector(".view-modal");
+  const modalDiv = document.querySelector(".modal-edit-view");
+  const action = "edit";
+  const skillArr = [];
+  const firstName = parent.querySelector("#fname").value;
+  const lastName = parent.querySelector("#lname").value;
+  const email = parent.querySelector("#mail").value;
+  const value = formValidation(firstName, lastName, email);
+  if (value) {
+    inputAdd.forEach((tag) => {
+      if (tag.checked) {
+        const skillObj = skillData.find((skill) => skill.skill === tag.name);
+        skillArr.push({ skillId: skillObj.skillId, skill: skillObj.skill });
+      }
+    });
+    empDetails.forEach((item) => {
+      if (empId === item.id) {
+        item.firstName = parent.querySelector("#fname").value;
+        item.lastName = parent.querySelector("#lname").value;
+        item.designation = parent.querySelector("#des").value;
+        item.dateOfJoining = parent.querySelector("#doj").value;
+        item.dateOfBirth = parent.querySelector("#dob").value;
+        item.address = parent.querySelector("#addr").value;
+        item.emailId = parent.querySelector("#mail").value;
+        item.skills = skillArr;
+      }
+    });
+    localStorage.setItem("employData", JSON.stringify(empDetails));
+    modalBox.style.display = "none";
+    modalDiv.style.display = "none";
+    showSuccessDialog(action);
+    replaceUpdatedEmployeeRow(empId, empDetails);
+  }
+}
 
-function populateSkillCheckbox(empDetails, id) {
+function replaceUpdatedEmployeeRow(empId, empDetails) {
+  const tableBody = document.querySelectorAll("#table-body tr");
+  tableBody.forEach((item) => {
+    if (item.id.slice(3) == empId) {
+      const skillField = item.querySelector("#skill-field");
+      const skillFieldContent = item.querySelector("#skill-field p");
+      const actionField = item.querySelector("#action-field");
+      const employee = empDetails.find((data) => data.id == empId);
+      skillFieldContent.innerHTML = employee.skills
+        .map((skill) => skill.skill)
+        .join(",");
+      item.innerHTML = `<td>${employee.id}</td>
+        <td>${employee.firstName} ${employee.lastName}</td> 
+        <td>${employee.designation}</td>
+        <td>${employee.emailId}</td>`;
+      item.appendChild(skillField);
+      item.appendChild(actionField);
+    }
+  });
+}
+
+function populateSkillCheckbox(id) {
+  const empDetails = JSON.parse(localStorage.getItem("employData"));
   const parent = document.querySelectorAll("#search-container input");
   const empskills = empDetails.find((emp) => emp.id == id);
   const empSkillArr = empskills.skills.map((skill) => skill.skill);
@@ -306,12 +341,72 @@ function populateSkillCheckbox(empDetails, id) {
   });
 }
 
+function onclickDeleteIcon() {
+  const icon = document.querySelectorAll(".delete");
+  const deleteMsg = document.querySelector(".delete-updation");
+  const modalDiv = document.querySelector(".modal-delete");
+  icon.forEach((item) => {
+    item.addEventListener("click", () => {
+      deleteMsg.style.display = "block";
+      modalDiv.style.display = "block";
+      deleteEmployee(event.target.id);
+    });
+  });
+}
+
+function deleteEmployee(id) {
+  const empId = id.slice(8);
+  const empDetails = JSON.parse(localStorage.getItem("employData"));
+  const deleteMsg = document.querySelector(".delete-updation");
+  const modalDiv = document.querySelector(".modal-delete");
+  const yesButton = document.querySelector(".yes-button");
+  const action = "delete";
+  yesButton.addEventListener("click", () => {
+    empDetails.forEach((empData) => {
+      if (empData.id == empId) {
+        const itemIndex = empDetails.indexOf(empData);
+        empDetails.splice(itemIndex, 1);
+        localStorage.setItem("employData", JSON.stringify(empDetails));
+        reloadTable();
+      }
+      deleteMsg.style.display = "none";
+      modalDiv.style.display = "none";
+      showSuccessDialog(action);
+    });
+  });
+}
+
+function reloadTable() {
+  let element = document.getElementById("table-body");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+  createTable();
+}
+
+function formValidation(firstName, lastName, email) {
+  const regExpEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+  const regExpName = /\d+$/g;
+  if (firstName == "" || regExpName.test(firstName)) {
+    window.alert("Please enter valid name.");
+    return false;
+  }
+  if (lastName == "" || regExpName.test(lastName)) {
+    window.alert("Please enter your name properly.");
+    return false;
+  }
+  if (email == "" || !regExpEmail.test(email)) {
+    window.alert("Please enter a valid e-mail address.");
+    return false;
+  }
+  return true;
+}
+
 window.onload = () => {
-  fetchEmployees();
   fetchSkills();
+  createTable();
   addSubmission();
   generateSkillSelectionUI();
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
 };
-
