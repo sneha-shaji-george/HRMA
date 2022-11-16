@@ -37,8 +37,10 @@ function createTable() {
   });
   employeeDetails(empDetails);
   deleteIconOnClick();
+
   sortEmployeeName();
   sortEmployeeId();
+
 }
 
 function addModal() {
@@ -46,6 +48,7 @@ function addModal() {
   const modalDiv = modalBox.querySelector(".add-modal");
   modalBox.style.display = "block";
   modalDiv.style.display = "block";
+  generateSkillSelectionUIOnAdd();
 }
 
 function closeModal() {
@@ -181,6 +184,7 @@ function generateSkillSelectionUIOnAdd() {
     parent.appendChild(input);
   });
 }
+
 
 function addEmployee() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
@@ -413,6 +417,7 @@ function validateEmployeeForm(firstName, lastName, email) {
   return true;
 }
 
+
 function sortEmployeeId() {
   const sortId = document.getElementById("id-sort");
   sortId.addEventListener("click", () => {
@@ -529,6 +534,7 @@ function designationFilter() {
     }
   });
 }
+
 
 function reloadTable() {
   let element = document.getElementById("table-body");
