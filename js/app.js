@@ -32,6 +32,7 @@ function addModal() {
   const modalDiv = modalBox.querySelector(".add-modal");
   modalBox.style.display = "block";
   modalDiv.style.display = "block";
+  generateSkillSelectionUIOnAdd();
 }
 
 function closeModal() {
@@ -41,14 +42,14 @@ function closeModal() {
   modalDiv.style.display = "none";
 }
 
-function successOk() {
+function successConfirmation() {
   const modalDiv = document.querySelector(".modal-add");
   const modalBox = document.querySelector(".success-modal");
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
 }
 
-function noConfirm() {
+function deleteConfirmOnNoClick() {
   const modalDiv = document.querySelector(".modal-delete");
   const confirmationBox = document.querySelector(".delete-updation");
   confirmationBox.style.display = "none";
@@ -152,7 +153,7 @@ function generateSkillSelectionUI() {
   });
 }
 
-function generateSkillSelectionUItoAdd() {
+function generateSkillSelectionUIOnAdd() {
   const skillData = JSON.parse(localStorage.getItem("skillData"));
   const parent = document.querySelector("#search-container-add");
   skillData.forEach((item) => {
@@ -167,7 +168,7 @@ function generateSkillSelectionUItoAdd() {
     parent.appendChild(input);
   });
 }
-generateSkillSelectionUItoAdd();
+
 
 function addEmployee() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
@@ -178,7 +179,7 @@ function addEmployee() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
-  const value = formValidation(firstName, lastName, email);
+  const value = validateEmployeeForm(firstName, lastName, email);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -282,7 +283,7 @@ function saveUpdatedDetails() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
-  const value = formValidation(firstName, lastName, email);
+  const value = validateEmployeeForm(firstName, lastName, email);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -376,15 +377,9 @@ function deleteEmployee(id) {
   });
 }
 
-function reloadTable() {
-  let element = document.getElementById("table-body");
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-  createTable();
-}
 
-function formValidation(firstName, lastName, email) {
+
+function validateEmployeeForm(firstName, lastName, email) {
   const regExpEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
   const regExpName = /\d+$/g;
   if (firstName == "" || regExpName.test(firstName)) {
@@ -400,6 +395,14 @@ function formValidation(firstName, lastName, email) {
     return false;
   }
   return true;
+}
+
+function reloadTable() {
+  let element = document.getElementById("table-body");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+  createTable();
 }
 
 window.onload = () => {
