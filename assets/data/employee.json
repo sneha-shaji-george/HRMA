@@ -1,64 +1,68 @@
 {
-  "employees": [{
-          "id": "1",
-          "firstName": "Sneha",
-          "lastName": "Shaji",
-          "designation": "Developer Intern",
-          "dateOfJoining": "01/02/2020",
-          "dateOfBirth": "29/02/2000",
-          "address": "Poikayil Kripalayam",
-          "emailId": "sneha@gamil.com",
-          "skills": [{
-                  "skillId": 2,
-                  "skill": "Python"
-              },
-              {
-                  "skillId": 1,
-                  "skill": "React"
-              },
-              {
-                  "skillId": 4,
-                  "skill": "NodeJS"
-              }
-          ]
-      },
-      {
-          "id": "2",
-          "firstName": "Mekha",
-          "lastName": "Shaji",
-          "designation": "Developer Intern",
-          "dateOfJoining": "",
-          "dateOfBirth": "",
-          "address": "Poikayil Kripalayam",
-          "emailId": "mekha@gmail.com",
-          "skills": [{
-                  "skillId": 4,
-                  "skill": "NodeJS"
-              },
-              {
-                  "skillId": 3,
-                  "skill": "Django"
-              }
-          ]
-      },
-      {
-          "id": "3",
-          "firstName": "Kripa",
-          "lastName": "Shaji",
-          "designation": "Developer Intern",
-          "dateOfJoining": "",
-          "dateOfBirth": "",
-          "address": "Poikayil Kripalayam",
-          "emailId": "kripa@gmail.com",
-          "skills": [{
-                  "skillId": 1,
-                  "skill": "React"
-              },
-              {
-                  "skillId": 4,
-                  "skill": "NodeJS"
-              }
-          ]
-      }
+  "employees": [
+    {
+      "id": "1",
+      "firstName": "Sneha",
+      "lastName": "Shaji",
+      "designation": "Software Intern",
+      "dateOfJoining": "01/02/2020",
+      "dateOfBirth": "29/02/2000",
+      "address": "Poikayil Kripalayam",
+      "emailId": "sneha@gamil.com",
+      "skills": [
+        {
+          "skillId": 2,
+          "skill": "Python"
+        },
+        {
+          "skillId": 1,
+          "skill": "React"
+        },
+        {
+          "skillId": 4,
+          "skill": "NodeJS"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "firstName": "Mekha",
+      "lastName": "Shaji",
+      "designation": "Software Developer",
+      "dateOfJoining": "",
+      "dateOfBirth": "",
+      "address": "Poikayil Kripalayam",
+      "emailId": "mekha@gmail.com",
+      "skills": [
+        {
+          "skillId": 4,
+          "skill": "NodeJS"
+        },
+        {
+          "skillId": 3,
+          "skill": "Django"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "firstName": "Kripa",
+      "lastName": "Shaji",
+      "designation": "Software Intern",
+      "dateOfJoining": "",
+      "dateOfBirth": "",
+      "address": "Poikayil Kripalayam",
+      "emailId": "kripa@gmail.com",
+      "skills": [
+        {
+          "skillId": 1,
+          "skill": "React"
+        },
+        {
+          "skillId": 4,
+          "skill": "NodeJS"
+        }
+      ]
+    }
   ]
 }

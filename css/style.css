@@ -157,6 +157,7 @@ h2 {
 #add-submit-button {
   text-align: center;
   margin-left: 243px;
+  /* margin-bottom: 50px; */
 }
 
 #update-submit-button {
@@ -205,35 +206,83 @@ h3 {
   text-align: center;
 }
 
-#sort-button {
-  padding: 6px
-}
-
-.filter-button,
+#sort-button,
+#filter-button,
 .add-button {
-  padding: 3px;
+  background-color: rgb(1, 28, 52);
+  color: white;
+  padding: 6px;
+  font-weight: 600;
 }
 
-.sort-dropdown {
+.sort-dropdown,
+.filter-dropdown {
   display: inline-block;
   position: relative;
 }
 
-.sort-dropdown-options {
+.sort-dropdown-options,
+.filter-dropdown-options {
   display: none;
   position: absolute;
   overflow: auto;
   background-color: white;
+}
+.sort-dropdown-options {
+  width: max-content;
+}
+
+.filter-dropdown:hover .filter-dropdown-options {
+  display: block;
 }
 
 .sort-dropdown:hover .sort-dropdown-options {
   display: block;
 }
 
+#search-container-add {
+  display: flex;
+}
+
 #id-sort,
-#name-sort {
+#name-sort,
+#des-filter,
+#skill-filter {
+  font-weight: 600;
   border: none;
   color: black;
   background-color: white;
   cursor: pointer;
+}
+
+#des-filter {
+  padding-top: 9px;
+}
+
+#id-sort {
+  padding-top: 10px;
+}
+#name-sort {
+  padding-bottom: 10px;
+}
+
+#filter-skill-search {
+  padding: 5px 5px;
+  display: none;
+  flex-wrap: wrap;
+  width: 75px;
+  overflow-y: scroll;
+}
+
+#filter-skill-search::-webkit-scrollbar {
+  display: none;
+}
+
+#apply {
+  display: none;
+  margin: 2px auto;
+}
+#skill-container {
+  padding-bottom: 7px;
+  padding-left: 2px;
 }

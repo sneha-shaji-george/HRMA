@@ -16,6 +16,18 @@ const fetchSkills = () => {
     });
 };
 
+const fetchDesignation = () => {
+  fetch("assets/data/designation.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const designationDetails = data["designation"];
+      localStorage.setItem(
+        "designationData",
+        JSON.stringify(designationDetails)
+      );
+    });
+};
+
 localStorage.getItem("employData") === null && fetchEmployees();
 
 function createTable() {
@@ -24,7 +36,9 @@ function createTable() {
     addEmployeeRow(data, empDetails);
   });
   employeeDetails(empDetails);
-  onclickDeleteIcon();
+  deleteIconOnClick();
+  sortEmployeeName();
+  sortEmployeeId();
 }
 
 function addModal() {
@@ -41,14 +55,14 @@ function closeModal() {
   modalDiv.style.display = "none";
 }
 
-function successOk() {
+function successConfirmation() {
   const modalDiv = document.querySelector(".modal-add");
   const modalBox = document.querySelector(".success-modal");
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
 }
 
-function noConfirm() {
+function deleteConfirmOnNoClick() {
   const modalDiv = document.querySelector(".modal-delete");
   const confirmationBox = document.querySelector(".delete-updation");
   confirmationBox.style.display = "none";
@@ -152,7 +166,7 @@ function generateSkillSelectionUI() {
   });
 }
 
-function generateSkillSelectionUItoAdd() {
+function generateSkillSelectionUIOnAdd() {
   const skillData = JSON.parse(localStorage.getItem("skillData"));
   const parent = document.querySelector("#search-container-add");
   skillData.forEach((item) => {
@@ -167,7 +181,6 @@ function generateSkillSelectionUItoAdd() {
     parent.appendChild(input);
   });
 }
-generateSkillSelectionUItoAdd();
 
 function addEmployee() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
@@ -178,7 +191,7 @@ function addEmployee() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
-  const value = formValidation(firstName, lastName, email);
+  const value = validateEmployeeForm(firstName, lastName, email);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -225,7 +238,7 @@ function addEmployeeRow(data, empDetails) {
   iconDiv.setAttribute("class", "icons");
   row.innerHTML = `<td>${data.id}</td>
         <td>${data.firstName} ${data.lastName}</td> 
-        <td>${data.designation}</td>
+        <td id="designation-col">${data.designation}</td>
         <td>${data.emailId}</td>`;
   const skillName = document.createElement("p");
   skillName.innerHTML = data.skills.map((skill) => skill.skill).join(", ");
@@ -238,7 +251,7 @@ function addEmployeeRow(data, empDetails) {
   row.appendChild(actionField);
   tableBody.appendChild(row);
   employeeDetails(empDetails);
-  onclickDeleteIcon();
+  deleteIconOnClick();
 }
 
 function addSubmission() {
@@ -282,7 +295,7 @@ function saveUpdatedDetails() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
-  const value = formValidation(firstName, lastName, email);
+  const value = validateEmployeeForm(firstName, lastName, email);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -295,8 +308,10 @@ function saveUpdatedDetails() {
         item.firstName = parent.querySelector("#fname").value;
         item.lastName = parent.querySelector("#lname").value;
         item.designation = parent.querySelector("#des").value;
+        console.log(item.designation);
         item.dateOfJoining = parent.querySelector("#doj").value;
         item.dateOfBirth = parent.querySelector("#dob").value;
+        const skillData = JSON.parse(localStorage.getItem("skillData"));
         item.address = parent.querySelector("#addr").value;
         item.emailId = parent.querySelector("#mail").value;
         item.skills = skillArr;
@@ -341,7 +356,7 @@ function populateSkillCheckbox(id) {
   });
 }
 
-function onclickDeleteIcon() {
+function deleteIconOnClick() {
   const icon = document.querySelectorAll(".delete");
   const deleteMsg = document.querySelector(".delete-updation");
   const modalDiv = document.querySelector(".modal-delete");
@@ -376,23 +391,19 @@ function deleteEmployee(id) {
   });
 }
 
-function reloadTable() {
-  let element = document.getElementById("table-body");
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-  createTable();
-}
-
-function formValidation(firstName, lastName, email) {
+function validateEmployeeForm(firstName, lastName, email) {
   const regExpEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
   const regExpName = /\d+$/g;
-  if (firstName == "" || regExpName.test(firstName)) {
+  if (
+    firstName == "" ||
+    regExpName.test(firstName) ||
+    firstName.startsWith(" ")
+  ) {
     window.alert("Please enter valid name.");
     return false;
   }
-  if (lastName == "" || regExpName.test(lastName)) {
-    window.alert("Please enter your name properly.");
+  if (lastName == "" || regExpName.test(lastName) || lastName.startsWith(" ")) {
+    window.alert("Please enter valid name.");
     return false;
   }
   if (email == "" || !regExpEmail.test(email)) {
@@ -402,11 +413,143 @@ function formValidation(firstName, lastName, email) {
   return true;
 }
 
+function sortEmployeeId() {
+  const sortId = document.getElementById("id-sort");
+  sortId.addEventListener("click", () => {
+    let empDetails = JSON.parse(localStorage.getItem("employData"));
+    empDetails = empDetails.sort((e1, e2) => {
+      return e1.id - e2.id;
+    });
+    localStorage.setItem("employData", JSON.stringify(empDetails));
+    reloadTable();
+  });
+}
+
+function sortEmployeeName() {
+  const sortName = document.getElementById("name-sort");
+  sortName.addEventListener("click", () => {
+    let empDetails = JSON.parse(localStorage.getItem("employData"));
+    empDetails = empDetails.sort((e1, e2) => {
+      return e1.firstName.localeCompare(e2.firstName);
+    });
+    localStorage.setItem("employData", JSON.stringify(empDetails));
+    reloadTable();
+  });
+}
+
+function skillGenerate() {
+  const parent = document.querySelector("#filter-skill-search");
+  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  skillData.forEach((item) => {
+    const input = document.createElement("input");
+    const skillLabel = document.createElement("label");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("id", `${item.skill}`);
+    input.setAttribute("name", `${item.skill}`);
+    skillLabel.setAttribute("for", `${item.skill}`);
+    skillLabel.innerHTML = `${item.skill}`;
+    parent.appendChild(input);
+    parent.appendChild(skillLabel);
+  });
+}
+
+function generateSkillSelectionDropdown() {
+  const designation = document.querySelector("#des-filter");
+  designation.addEventListener("click", () => {
+    const container = document.querySelector("#filter-skill-search");
+    const applyButton = document.querySelector("#apply");
+
+    if (container.style.display === "flex") {
+      container.style.display = "none";
+      applyButton.style.display = "none";
+    } else {
+      container.style.display = "flex";
+      applyButton.style.display = "block";
+    }
+  });
+}
+
+function generateFilteredTable() {
+  const applyButton = document.querySelector("#apply");
+  const parent = document.querySelectorAll("#filter-skill-search input");
+  applyButton.addEventListener("click", () => {
+    let checkedSkillArr = [];
+    parent.forEach((element) => {
+      if (element.checked) {
+        checkedSkillArr.push(element.name);
+      }
+    });
+    if (checkedSkillArr) {
+      const tableBody = document.querySelectorAll("#table-body tr");
+      tableBody.forEach((item) => {
+        let isThere = 0;
+        const skillFieldContent = item.querySelector("#skill-field p");
+        checkedSkillArr.forEach((item) => {
+          skillFieldContent.innerHTML
+            .toLowerCase()
+            .includes(item.toLowerCase()) && isThere++;
+        });
+
+        isThere == checkedSkillArr.length
+          ? (item.style.display = "")
+          : (item.style.display = "none");
+      });
+    } else {
+      reloadTable();
+    }
+  });
+}
+
+function generateDesignationDropDown() {
+  const designationData = JSON.parse(localStorage.getItem("designationData"));
+  const parent = document.querySelector("#skill-filter");
+  designationData.forEach((item) => {
+    const options = document.createElement("option");
+    options.setAttribute("id", `${item}`);
+    options.innerHTML = item;
+    options.setAttribute("value", `${item}`);
+    parent.appendChild(options);
+  });
+}
+
+function designationFilter() {
+  const parent = document.querySelector("#skill-filter");
+  parent.addEventListener("change", (e) => {
+    let design = e.target.value;
+    if (!(design === "none")) {
+      const tableBody = document.querySelectorAll("#table-body tr");
+      tableBody.forEach((item) => {
+        let isThere = false;
+        const designationColumn = item.querySelector("#designation-col");
+        designationColumn.innerHTML == design && (isThere = true);
+        isThere ? (item.style.display = "") : (item.style.display = "none");
+      });
+    } else {
+      reloadTable();
+    }
+  });
+}
+
+function reloadTable() {
+  let element = document.getElementById("table-body");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+  createTable();
+}
+
 window.onload = () => {
   fetchSkills();
+  fetchDesignation();
   createTable();
   addSubmission();
+  skillGenerate();
+  designationFilter();
   generateSkillSelectionUI();
+  generateSkillSelectionUIOnAdd();
+  generateSkillSelectionDropdown();
+  generateDesignationDropDown();
+  generateFilteredTable();
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
 };

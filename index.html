@@ -23,12 +23,30 @@
                 <div class="sort-dropdown">
                     <button id="sort-button">Sort By <i class="fa fa-chevron-down"></i></button>
                     <div class="sort-dropdown-options">
-                      <button id="id-sort">Employ Id</button>
-                      <hr>
-                      <button  id="name-sort">Employ Name</button>
+                        <button id="id-sort">Employ Id</button>
+                        <hr>
+                        <button id="name-sort">Employ Name</button>
                     </div>
                 </div>
-                <button class="filter-button" type="button">Filter By <i class="fa fa-angle-down"></i></button>
+                <div class="filter-dropdown">
+                    <button id="filter-button">Filter By<i class="fa fa-chevron-down"></i></button>
+                    <div class="filter-dropdown-options">
+                        <div id="designation-container">
+                            <button id="des-filter">Skill</button>
+                            <div id="filter-skill-search"></div>
+                            <button id="apply" type="submit">Apply</button>
+                        </div>
+                        <hr>
+                        <div id="skill-container">
+                            <select id="skill-filter">
+                                <option value="none" selected>
+                                    Designation
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="add">
                 <button class="add-button" type="button" onclick="addModal()">Add <i class="fa fa-plus"></i></button>
@@ -111,7 +129,8 @@
                         </div>
                     </div>
                 </form>
-                <button id="update-submit-button" type="submit" form="update-form" value="Submit" onclick="saveUpdatedDetails()">Save Changes</button>
+                <button id="update-submit-button" type="submit" form="update-form" value="Submit"
+                    onclick="saveUpdatedDetails()">Save Changes</button>
             </div>
         </section>
         <div class="success-modal">
@@ -120,7 +139,7 @@
             <h4 id="success-msg"></h4>
             <div class="success">
                 <button class="add-success-button" type="submit" form="update-form" value="Submit"
-                    onclick="successOk()">OK</button>
+                    onclick="successConfirmation()">OK</button>
             </div>
         </div>
         <div class="modal-delete">
@@ -128,8 +147,8 @@
                 <h3>Are you sure you wanted to delete this employee ?</h3>
                 <div class="buttons-confirmation">
                     <button class="no-button" type="submit" form="update-form" value="Submit"
-                        onclick="noConfirm()">No</button>
-                    <button class="yes-button" type="submit" form="update-form" value="Submit" >Yes</button>
+                        onclick="deleteConfirmOnNoClick()">No</button>
+                    <button class="yes-button" type="submit" form="update-form" value="Submit">Yes</button>
                 </div>
             </div>
         </div>
