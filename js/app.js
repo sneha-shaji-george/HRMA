@@ -24,7 +24,7 @@ function createTable() {
     addEmployeeRow(data, empDetails);
   });
   employeeDetails(empDetails);
-  onclickDeleteIcon();
+  deleteIconOnClick();
 }
 
 function addModal() {
@@ -239,7 +239,7 @@ function addEmployeeRow(data, empDetails) {
   row.appendChild(actionField);
   tableBody.appendChild(row);
   employeeDetails(empDetails);
-  onclickDeleteIcon();
+  deleteIconOnClick();
 }
 
 function addSubmission() {
@@ -342,7 +342,7 @@ function populateSkillCheckbox(id) {
   });
 }
 
-function onclickDeleteIcon() {
+function deleteIconOnClick() {
   const icon = document.querySelectorAll(".delete");
   const deleteMsg = document.querySelector(".delete-updation");
   const modalDiv = document.querySelector(".modal-delete");
