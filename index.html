@@ -73,7 +73,6 @@
                 <h2>Add Employee</h2>
                 <form id="add-form">
                     <div id="label-add">
-                        <label for="id">Employee Id:</label>
                         <label for="fname">First name:</label>
                         <label for="lname">Last name:</label>
                         <label for="des">Designation:</label>
@@ -84,7 +83,6 @@
                         <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-add">
-                        <input type="number" id="empid" name="empid">
                         <input type="text" id="fname" name="fname">
                         <input type="text" id="lname" name="lname">
                         <input type="text" id="des" name="des">
@@ -116,21 +114,23 @@
                         <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-edit-view">
-                        <input type="number" id="empid" name="empid">
-                        <input type="text" id="fname" name="fname">
-                        <input type="text" id="lname" name="lname">
-                        <input type="text" id="des" name="des">
-                        <input type="text" id="doj" name="doj">
-                        <input type="text" id="addr" name="addr">
-                        <input type="text" id="dob" name="dob">
-                        <input type="email" id="mail" name="mail">
+                        <input type="number" class="edit-input" id="empid" name="empid">
+                        <input type="text" class="edit-input" id="fname" name="fname">
+                        <input type="text" class="edit-input" id="lname" name="lname">
+                        <input type="text" class="edit-input" id="des" name="des">
+                        <input type="text" class="edit-input" id="doj" name="doj">
+                        <input type="text" class="edit-input" id="addr" name="addr">
+                        <input type="text" class="edit-input" id="dob" name="dob">
+                        <input type="email" class="edit-input" id="mail" name="mail">
                         <input type="text" id="skills" name="skills">
                         <div id="search-container">
                         </div>
                     </div>
                 </form>
-                <button id="update-submit-button" type="submit" form="update-form" value="Submit"
-                    onclick="saveUpdatedDetails()">Save Changes</button>
+                <div id="button">
+                    <button id="update-submit-button" type="submit" form="update-form" value="Submit"
+                        onclick="saveUpdatedDetails()">Save Changes</button>
+                </div>
             </div>
         </section>
         <div class="success-modal">
@@ -148,9 +148,7 @@
                 <div class="buttons-confirmation">
                     <button class="no-button" type="submit" form="update-form" value="Submit"
                         onclick="deleteConfirmOnNoClick()">No</button>
-
                     <button class="yes-button" type="submit" form="update-form" value="Submit">Yes</button>
-
                 </div>
             </div>
         </div>
