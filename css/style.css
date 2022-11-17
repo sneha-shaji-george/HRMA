@@ -138,9 +138,11 @@ form {
   width: 300px;
   display: flex;
 }
+
 #modal-form {
   padding-left: 56px;
 }
+
 h2 {
   text-align: center;
   padding-top: 68px;
@@ -308,3 +310,4 @@ h3 {
   padding-bottom: 7px;
   padding-left: 2px;
 }
+
