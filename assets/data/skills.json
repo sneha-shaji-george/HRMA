@@ -15,6 +15,10 @@
     {
       "skillId": 4,
       "skill": "NodeJS"
+    },
+    {
+      "skillId": 5,
+      "skill": "Vue.js"
     }
   ]
 }

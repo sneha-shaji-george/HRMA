@@ -195,7 +195,7 @@ function addEmployee() {
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
   const value = validateEmployeeForm(firstName, lastName, email);
-  console.log(value)
+  console.log(value);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -217,7 +217,7 @@ function addEmployee() {
     };
     empDetails.push(newEmployee);
     localStorage.setItem("employData", JSON.stringify(empDetails));
-   
+
     addModal.style.display = "none";
     showSuccessDialog(action);
     addForm.reset();
@@ -264,11 +264,9 @@ function addEmployeeRow(data, empDetails) {
 
 function addSubmission() {
   const addSubmitButton = document.querySelector("#add-submit-button");
- 
+
   addSubmitButton.addEventListener("click", () => {
     addEmployee();
-    
-    
   });
 }
 
