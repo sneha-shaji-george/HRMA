@@ -70,14 +70,20 @@ table {
 }
 
 .update-modal,
-.add-modal,
+.add-modal {
+  display: none;
+  background-color: aliceblue;
+  max-width: 615px;
+
+  margin: 63px auto;
+}
+
 .view-modal {
   display: none;
   background-color: aliceblue;
   max-width: 615px;
-  max-height: 640px;
+  margin-top: 30px;
   margin: 0 auto;
-  height: 100%;
 }
 
 .modal-one,
@@ -102,6 +108,10 @@ table {
   background-color: aliceblue;
 }
 
+.edit-input {
+  width: 215px;
+}
+
 label {
   width: max-content;
 }
@@ -123,11 +133,14 @@ label {
 }
 
 form {
+  margin-bottom: 68px;
   margin: 48px auto;
   width: 300px;
   display: flex;
 }
-
+#modal-form {
+  padding-left: 56px;
+}
 h2 {
   text-align: center;
   padding-top: 68px;
@@ -145,18 +158,20 @@ h2 {
 #label-add,
 #label-edit-view {
   gap: 29px;
+  margin-left: -30px;
 }
 
 #inputs-add,
 #inputs-edit-view {
   gap: 26px;
-  margin-left: 23px;
+  margin-left: 10px;
 }
 
 #update-submit-button,
 #add-submit-button {
   text-align: center;
-  margin-left: 243px;
+  margin-left: 280px;
+  margin-bottom: 50px;
 }
 
 #update-submit-button {
@@ -182,12 +197,17 @@ h3 {
   right: 0;
   max-width: 587px;
   width: 100%;
-  margin: 60px auto;
+  margin: 130px auto;
   overflow: auto;
   background-color: white;
   padding-top: 20px;
   padding-bottom: 20px;
   max-height: 640px;
+  line-height: 0.5px;
+}
+
+.success-modal h3 {
+  font-size: 25px;
 }
 
 .add-success-button,
@@ -205,35 +225,86 @@ h3 {
   text-align: center;
 }
 
-#sort-button {
-  padding: 6px
-}
-
-.filter-button,
+#sort-button,
+#filter-button,
 .add-button {
-  padding: 3px;
+  background-color: rgb(1, 28, 52);
+  color: white;
+  padding: 6px;
+  font-weight: 600;
 }
 
-.sort-dropdown {
+.sort-dropdown,
+.filter-dropdown {
   display: inline-block;
   position: relative;
 }
 
-.sort-dropdown-options {
+.sort-dropdown-options,
+.filter-dropdown-options {
   display: none;
   position: absolute;
   overflow: auto;
   background-color: white;
+}
+.sort-dropdown-options {
+  width: max-content;
+}
+
+#button {
+  padding-bottom: 5px;
+}
+.filter-dropdown:hover .filter-dropdown-options {
+  display: block;
 }
 
 .sort-dropdown:hover .sort-dropdown-options {
   display: block;
 }
 
+#search-container-add {
+  display: flex;
+}
+
 #id-sort,
-#name-sort {
+#name-sort,
+#des-filter,
+#skill-filter {
+  font-weight: 600;
   border: none;
   color: black;
   background-color: white;
   cursor: pointer;
+}
+
+#des-filter {
+  padding-top: 9px;
+}
+
+#id-sort {
+  padding-top: 10px;
+}
+#name-sort {
+  padding-bottom: 10px;
+}
+
+#filter-skill-search {
+  padding: 5px 5px;
+  display: none;
+  flex-wrap: wrap;
+  width: 75px;
+  overflow-y: scroll;
+}
+
+#filter-skill-search::-webkit-scrollbar {
+  display: none;
+}
+
+#apply {
+  display: none;
+  margin: 2px auto;
+}
+#skill-container {
+  padding-bottom: 7px;
+  padding-left: 2px;
 }

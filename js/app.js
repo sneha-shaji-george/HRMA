@@ -12,11 +12,21 @@ const fetchSkills = () => {
     .then((response) => response.json())
     .then((data) => {
       const skillDetails = data["skills"];
-      localStorage.setItem("skillData", JSON.stringify(skillDetails));
+      localStorage.setItem("skills", JSON.stringify(skillDetails));
     });
 };
 
-localStorage.getItem("employData") === null && fetchEmployees();
+const fetchDesignation = () => {
+  fetch("assets/data/designation.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const designationDetails = data["designation"];
+      localStorage.setItem(
+        "designationData",
+        JSON.stringify(designationDetails)
+      );
+    });
+};
 
 function createTable() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
@@ -25,6 +35,8 @@ function createTable() {
   });
   employeeDetails(empDetails);
   deleteIconOnClick();
+  sortEmployeeByName();
+  sortEmployeeById();
 }
 
 function addModal() {
@@ -32,7 +44,6 @@ function addModal() {
   const modalDiv = modalBox.querySelector(".add-modal");
   modalBox.style.display = "block";
   modalDiv.style.display = "block";
-  generateSkillSelectionUIOnAdd();
 }
 
 function closeModal() {
@@ -138,9 +149,9 @@ function closeEmployeeManageModal() {
 }
 
 function generateSkillSelectionUI() {
-  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const skills = JSON.parse(localStorage.getItem("skills"));
   const parent = document.querySelector("#search-container");
-  skillData.forEach((item) => {
+  skills.forEach((item) => {
     const input = document.createElement("input");
     const skillLabel = document.createElement("label");
     input.setAttribute("type", "checkbox");
@@ -154,9 +165,9 @@ function generateSkillSelectionUI() {
 }
 
 function generateSkillSelectionUIOnAdd() {
-  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const skills = JSON.parse(localStorage.getItem("skills"));
   const parent = document.querySelector("#search-container-add");
-  skillData.forEach((item) => {
+  skills.forEach((item) => {
     const input = document.createElement("input");
     const skillLabel = document.createElement("label");
     input.setAttribute("type", "checkbox");
@@ -169,27 +180,32 @@ function generateSkillSelectionUIOnAdd() {
   });
 }
 
-
 function addEmployee() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   const parent = document.querySelector("#inputs-add");
   const inputAdd = document.querySelectorAll("#search-container-add input");
-  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const addModal = document.querySelector(".add-modal");
+  const addForm = document.querySelector("#add-form");
+  const action = "add";
+  const skills = JSON.parse(localStorage.getItem("skills"));
   const skillArr = [];
+  const idArr = empDetails.map((emp) => emp.id);
+  const nextId = Math.max(...idArr) + 1;
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
   const value = validateEmployeeForm(firstName, lastName, email);
+  console.log(value)
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
-        const skillObj = skillData.find((skill) => skill.skill === tag.name);
+        const skillObj = skills.find((skill) => skill.skill === tag.name);
 
         skillArr.push({ skillId: skillObj.skillId, skill: skillObj.skill });
       }
     });
     const newEmployee = {
-      id: parent.querySelector("#empid").value,
+      id: nextId,
       firstName: parent.querySelector("#fname").value,
       lastName: parent.querySelector("#lname").value,
       designation: parent.querySelector("#des").value,
@@ -201,6 +217,10 @@ function addEmployee() {
     };
     empDetails.push(newEmployee);
     localStorage.setItem("employData", JSON.stringify(empDetails));
+   
+    addModal.style.display = "none";
+    showSuccessDialog(action);
+    addForm.reset();
     addEmployeeRow(newEmployee, empDetails);
   }
 }
@@ -226,7 +246,7 @@ function addEmployeeRow(data, empDetails) {
   iconDiv.setAttribute("class", "icons");
   row.innerHTML = `<td>${data.id}</td>
         <td>${data.firstName} ${data.lastName}</td> 
-        <td>${data.designation}</td>
+        <td id="designation-col">${data.designation}</td>
         <td>${data.emailId}</td>`;
   const skillName = document.createElement("p");
   skillName.innerHTML = data.skills.map((skill) => skill.skill).join(", ");
@@ -244,14 +264,11 @@ function addEmployeeRow(data, empDetails) {
 
 function addSubmission() {
   const addSubmitButton = document.querySelector("#add-submit-button");
-  const addModal = document.querySelector(".add-modal");
-  const addForm = document.querySelector("#add-form");
-  const action = "add";
+ 
   addSubmitButton.addEventListener("click", () => {
     addEmployee();
-    addForm.reset();
-    addModal.style.display = "none";
-    showSuccessDialog(action);
+    
+    
   });
 }
 
@@ -275,7 +292,7 @@ function saveUpdatedDetails() {
   const empId = parent.querySelector("#empid").value;
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   const inputAdd = document.querySelectorAll("#search-container input");
-  const skillData = JSON.parse(localStorage.getItem("skillData"));
+  const skills = JSON.parse(localStorage.getItem("skills"));
   const modalBox = document.querySelector(".view-modal");
   const modalDiv = document.querySelector(".modal-edit-view");
   const action = "edit";
@@ -283,11 +300,12 @@ function saveUpdatedDetails() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
+  // const id = parent.querySelector("#mail").value;
   const value = validateEmployeeForm(firstName, lastName, email);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
-        const skillObj = skillData.find((skill) => skill.skill === tag.name);
+        const skillObj = skills.find((skill) => skill.skill === tag.name);
         skillArr.push({ skillId: skillObj.skillId, skill: skillObj.skill });
       }
     });
@@ -298,6 +316,7 @@ function saveUpdatedDetails() {
         item.designation = parent.querySelector("#des").value;
         item.dateOfJoining = parent.querySelector("#doj").value;
         item.dateOfBirth = parent.querySelector("#dob").value;
+        const skills = JSON.parse(localStorage.getItem("skills"));
         item.address = parent.querySelector("#addr").value;
         item.emailId = parent.querySelector("#mail").value;
         item.skills = skillArr;
@@ -377,17 +396,19 @@ function deleteEmployee(id) {
   });
 }
 
-
-
 function validateEmployeeForm(firstName, lastName, email) {
   const regExpEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
   const regExpName = /\d+$/g;
-  if (firstName == "" || regExpName.test(firstName)) {
+  if (
+    firstName == "" ||
+    regExpName.test(firstName) ||
+    firstName.startsWith(" ")
+  ) {
     window.alert("Please enter valid name.");
     return false;
   }
-  if (lastName == "" || regExpName.test(lastName)) {
-    window.alert("Please enter your name properly.");
+  if (lastName == "" || regExpName.test(lastName) || lastName.startsWith(" ")) {
+    window.alert("Please enter valid name.");
     return false;
   }
   if (email == "" || !regExpEmail.test(email)) {
@@ -395,6 +416,123 @@ function validateEmployeeForm(firstName, lastName, email) {
     return false;
   }
   return true;
+}
+
+function sortEmployeeById() {
+  const sortId = document.getElementById("id-sort");
+  sortId.addEventListener("click", () => {
+    let empDetails = JSON.parse(localStorage.getItem("employData"));
+    empDetails = empDetails.sort((e1, e2) => {
+      return e1.id - e2.id;
+    });
+    localStorage.setItem("employData", JSON.stringify(empDetails));
+    reloadTable();
+  });
+}
+
+function sortEmployeeByName() {
+  const sortName = document.getElementById("name-sort");
+  sortName.addEventListener("click", () => {
+    let empDetails = JSON.parse(localStorage.getItem("employData"));
+    empDetails = empDetails.sort((e1, e2) => {
+      return e1.firstName.localeCompare(e2.firstName);
+    });
+    localStorage.setItem("employData", JSON.stringify(empDetails));
+    reloadTable();
+  });
+}
+
+function generateSkillFilterUI() {
+  const parent = document.querySelector("#filter-skill-search");
+  const skills = JSON.parse(localStorage.getItem("skills"));
+  skills.forEach((item) => {
+    const input = document.createElement("input");
+    const skillLabel = document.createElement("label");
+    input.setAttribute("type", "checkbox");
+    input.setAttribute("id", `${item.skill}`);
+    input.setAttribute("name", `${item.skill}`);
+    skillLabel.setAttribute("for", `${item.skill}`);
+    skillLabel.innerHTML = `${item.skill}`;
+    parent.appendChild(input);
+    parent.appendChild(skillLabel);
+  });
+}
+
+function generateSkillSelectionDropdown() {
+  const designation = document.querySelector("#des-filter");
+  designation.addEventListener("click", () => {
+    const container = document.querySelector("#filter-skill-search");
+    const applyButton = document.querySelector("#apply");
+
+    if (container.style.display === "flex") {
+      container.style.display = "none";
+      applyButton.style.display = "none";
+    } else {
+      container.style.display = "flex";
+      applyButton.style.display = "block";
+    }
+  });
+}
+
+function generateFilteredTable() {
+  const applyButton = document.querySelector("#apply");
+  const parent = document.querySelectorAll("#filter-skill-search input");
+  applyButton.addEventListener("click", () => {
+    let checkedSkillArr = [];
+    parent.forEach((element) => {
+      if (element.checked) {
+        checkedSkillArr.push(element.name);
+      }
+    });
+    if (checkedSkillArr) {
+      const tableBody = document.querySelectorAll("#table-body tr");
+      tableBody.forEach((item) => {
+        let isThere = 0;
+        const skillFieldContent = item.querySelector("#skill-field p");
+        checkedSkillArr.forEach((item) => {
+          skillFieldContent.innerHTML
+            .toLowerCase()
+            .includes(item.toLowerCase()) && isThere++;
+        });
+
+        isThere == checkedSkillArr.length
+          ? (item.style.display = "")
+          : (item.style.display = "none");
+      });
+    } else {
+      reloadTable();
+    }
+  });
+}
+
+function generateDesignationDropDown() {
+  const designationData = JSON.parse(localStorage.getItem("designationData"));
+  const parent = document.querySelector("#skill-filter");
+  designationData.forEach((item) => {
+    const options = document.createElement("option");
+    options.setAttribute("id", `${item}`);
+    options.innerHTML = item;
+    options.setAttribute("value", `${item}`);
+    parent.appendChild(options);
+  });
+}
+
+function filterByDesignation() {
+  const parent = document.querySelector("#skill-filter");
+  parent.addEventListener("change", (e) => {
+    let design = e.target.value;
+    if (!(design === "none")) {
+      const tableBody = document.querySelectorAll("#table-body tr");
+      tableBody.forEach((item) => {
+        let isThere = false;
+        const designationColumn = item.querySelector("#designation-col");
+        designationColumn.innerHTML == design && (isThere = true);
+        isThere ? (item.style.display = "") : (item.style.display = "none");
+      });
+    } else {
+      reloadTable();
+    }
+  });
 }
 
 function reloadTable() {
@@ -406,10 +544,18 @@ function reloadTable() {
 }
 
 window.onload = () => {
+  localStorage.getItem("employData") === null && fetchEmployees();
   fetchSkills();
+  fetchDesignation();
   createTable();
   addSubmission();
+  generateSkillFilterUI();
+  filterByDesignation();
   generateSkillSelectionUI();
+  generateSkillSelectionUIOnAdd();
+  generateSkillSelectionDropdown();
+  generateDesignationDropDown();
+  generateFilteredTable();
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
 };
