@@ -83,16 +83,22 @@
                         <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-add">
-                        <input type="text" id="fname" name="fname">
-                        <input type="text" id="lname" name="lname">
-                        <input type="text" id="des" name="des">
-                        <input type="date" id="doj" name="doj">
-                        <input type="text" id="addr" name="addr">
-                        <input type="date" id="dob" name="dob">
-                        <input type="email" id="mail" name="mail">
+                        <input type="text" class="add-input" id="fname" name="fname" autocomplete="off">
+                        <input type="text" class="add-input" id="lname" name="lname" autocomplete="off">
+                        <input type="text" class="add-input" id="des" list="des-suggestions" name="des"
+                            autocomplete="off">
+                        <input type="date" class="add-input" id="doj" name="doj" autocomplete="off">
+                        <input type="text" class="add-input" id="addr" name="addr" autocomplete="off">
+                        <input type="date" class="add-input" id="dob" name="dob" autocomplete="off">
+                        <input type="email" class="add-input" id="mail" name="mail" autocomplete="off">
                         <div id="search-container-add">
                         </div>
                     </div>
+                    <datalist id="des-suggestions">
+                        <option value="Software Developer">
+                        <option value="Software Intern">
+                        <option value="Architect">
+                    </datalist>
                 </form>
                 <button id="add-submit-button" type="submit" form="update-form" value="Submit">ADD</button>
             </div>
@@ -114,14 +120,15 @@
                         <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-edit-view">
-                        <input type="number" class="edit-input" id="empid" name="empid">
-                        <input type="text" class="edit-input" id="fname" name="fname">
-                        <input type="text" class="edit-input" id="lname" name="lname">
-                        <input type="text" class="edit-input" id="des" name="des">
-                        <input type="text" class="edit-input" id="doj" name="doj">
-                        <input type="text" class="edit-input" id="addr" name="addr">
-                        <input type="text" class="edit-input" id="dob" name="dob">
-                        <input type="email" class="edit-input" id="mail" name="mail">
+                        <input type="number" class="edit-input" id="empid" name="empid" autocomplete="off">
+                        <input type="text" class="edit-input" id="fname" name="fname" autocomplete="off">
+                        <input type="text" class="edit-input" id="lname" name="lname" autocomplete="off">
+                        <input type="text" class="edit-input" list="des-suggestions" id="des" name="des"
+                            autocomplete="off">
+                        <input type="text" class="edit-input" id="doj" name="doj" autocomplete="off">
+                        <input type="text" class="edit-input" id="addr" name="addr" autocomplete="off">
+                        <input type="text" class="edit-input" id="dob" name="dob" autocomplete="off">
+                        <input type="email" class="edit-input" id="mail" name="mail" autocomplete="off">
                         <input type="text" id="skills" name="skills">
                         <div id="search-container">
                         </div>

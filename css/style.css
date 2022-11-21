@@ -1,6 +1,7 @@
 body {
   margin: 0px;
   background-color: #fae7c7;
+
 }
 
 header {
@@ -32,6 +33,9 @@ main {
 h1 {
   padding-left: 10px;
   margin-bottom: 10px;
+  color: #011c34;
+  font-size: 29px;
+  font-family: sans-serif;
 }
 
 .employee-management {
@@ -108,7 +112,7 @@ table {
   background-color: aliceblue;
 }
 
-.edit-input {
+.edit-input,.add-input {
   width: 215px;
 }
 
@@ -310,4 +314,3 @@ h3 {
   padding-bottom: 7px;
   padding-left: 2px;
 }
-

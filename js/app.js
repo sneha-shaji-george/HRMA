@@ -33,8 +33,6 @@ function createTable() {
   empDetails.forEach((data) => {
     addEmployeeRow(data, empDetails);
   });
-  employeeDetails(empDetails);
-  deleteIconOnClick();
   sortEmployeeByName();
   sortEmployeeById();
 }
@@ -49,8 +47,10 @@ function addModal() {
 function closeModal() {
   const modalBox = document.querySelector(".modal-add");
   const modalDiv = modalBox.querySelector(".add-modal");
+  const addForm = document.querySelector("#add-form");
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
+  addForm.reset();
 }
 
 function successConfirmation() {
@@ -195,7 +195,6 @@ function addEmployee() {
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
   const value = validateEmployeeForm(firstName, lastName, email);
-  console.log(value);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -264,7 +263,6 @@ function addEmployeeRow(data, empDetails) {
 
 function addSubmission() {
   const addSubmitButton = document.querySelector("#add-submit-button");
-
   addSubmitButton.addEventListener("click", () => {
     addEmployee();
   });
@@ -287,7 +285,7 @@ function showSuccessDialog(action) {
 
 function saveUpdatedDetails() {
   const parent = document.querySelector("#inputs-edit-view ");
-  const empId = parent.querySelector("#empid").value;
+  const empId = +parent.querySelector("#empid").value;
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   const inputAdd = document.querySelectorAll("#search-container input");
   const skills = JSON.parse(localStorage.getItem("skills"));
@@ -298,8 +296,8 @@ function saveUpdatedDetails() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
-  // const id = parent.querySelector("#mail").value;
   const value = validateEmployeeForm(firstName, lastName, email);
+
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -314,7 +312,6 @@ function saveUpdatedDetails() {
         item.designation = parent.querySelector("#des").value;
         item.dateOfJoining = parent.querySelector("#doj").value;
         item.dateOfBirth = parent.querySelector("#dob").value;
-        const skills = JSON.parse(localStorage.getItem("skills"));
         item.address = parent.querySelector("#addr").value;
         item.emailId = parent.querySelector("#mail").value;
         item.skills = skillArr;
@@ -557,3 +554,5 @@ window.onload = () => {
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
 };
+
+
