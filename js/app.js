@@ -67,19 +67,19 @@ function deleteConfirmOnNoClick() {
   modalDiv.style.display = "none";
 }
 
-function employeeDetails(empDetails) {
+function employeeDetails() {
   const viewButton = document.querySelectorAll(".view");
   const btn = document.querySelectorAll(".edit");
   const isEdit = false;
   viewButton.forEach((icon) => {
     icon.addEventListener("click", () => {
-      employManagementModal(empDetails, event.target.id, isEdit);
+      employManagementModal(event.target.id, isEdit);
     });
   });
   btn.forEach((icon) => {
     icon.addEventListener("click", () => {
       const isEdit = true;
-      employManagementModal(empDetails, event.target.id, isEdit);
+      employManagementModal(event.target.id, isEdit);
     });
   });
 }
@@ -91,8 +91,9 @@ function getAppHeaderText() {
   parent.appendChild(appName);
 }
 
-function employManagementModal(empDetails, target, isEdit) {
+function employManagementModal(target, isEdit) {
   const modalHeading = document.querySelector("#modal-heading");
+  const empDetails = JSON.parse(localStorage.getItem("employData"));
   const parent = document.getElementById("inputs-edit-view");
   const submitBtn = document.querySelector("#update-submit-button");
   const modalBox = document.querySelector(".view-modal");
@@ -257,7 +258,7 @@ function addEmployeeRow(data, empDetails) {
   actionField.appendChild(iconDiv);
   row.appendChild(actionField);
   tableBody.appendChild(row);
-  employeeDetails(empDetails);
+  employeeDetails();
   deleteIconOnClick();
 }
 
