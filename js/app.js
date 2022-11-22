@@ -1,9 +1,12 @@
+
 const fetchEmployees = () => {
   fetch("assets/data/employee.json")
     .then((response) => response.json())
     .then((data) => {
       const empDetails = data["employees"];
       localStorage.setItem("employData", JSON.stringify(empDetails));
+      createTable();
+      window.location.reload()
     });
 };
 
@@ -31,10 +34,9 @@ const fetchDesignation = () => {
 function createTable() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   empDetails.forEach((data) => {
-    addEmployeeRow(data, empDetails);
+    addEmployeeRow(data);
   });
-  sortEmployeeByName();
-  sortEmployeeById();
+ 
 }
 
 function addModal() {
@@ -47,7 +49,7 @@ function addModal() {
 function closeModal() {
   const modalBox = document.querySelector(".modal-add");
   const modalDiv = modalBox.querySelector(".add-modal");
-  const addForm = document.querySelector("#add-form");
+  const addForm = document.querySelector("#add-form");fetch
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
   addForm.reset();
@@ -221,11 +223,11 @@ function addEmployee() {
     addModal.style.display = "none";
     showSuccessDialog(action);
     addForm.reset();
-    addEmployeeRow(newEmployee, empDetails);
+    addEmployeeRow(newEmployee);
   }
 }
 
-function addEmployeeRow(data, empDetails) {
+function addEmployeeRow(data) {
   const tableBody = document.querySelector("#table-body");
   const row = document.createElement("tr");
   row.setAttribute("id", `row${data.id}`);
@@ -260,6 +262,8 @@ function addEmployeeRow(data, empDetails) {
   tableBody.appendChild(row);
   employeeDetails();
   deleteIconOnClick();
+  sortEmployeeByName();
+  sortEmployeeById();
 }
 
 function addSubmission() {
@@ -557,3 +561,4 @@ window.onload = () => {
 };
 
 
+fetch
