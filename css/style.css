@@ -1,0 +1,427 @@
+body {
+  margin: 0px;
+  background-color: #ADB5BD;
+}
+
+header {
+  background-color: #212529;
+  border-bottom: 2px solid #00000030;
+  box-shadow: 0 0 5px 2px #00000030;
+  padding-left: 21px;
+}
+
+.hamburger {
+  padding-left: calc(100% - 580px);
+  padding-top: 39px;
+}
+
+#logo {
+  background-color: #CED4DA;
+  padding-top: 20px;
+  padding-left: 21px;
+}
+
+#skills {
+  display: none;
+  border: solid 1px grey;
+  border-radius: 8px;
+}
+  
+
+
+main {
+  margin-top: 40px;
+}
+
+h1 {
+  padding: 50px 50px;
+  text-align: center;
+  color: #CED4DA;
+  margin: 0 0;
+  font-size: 40px;
+  font-family: sans-serif;
+}
+
+.employee-management {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  
+}
+
+th {
+  background-color: #212529;
+  text-align: center;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: white;
+  padding: 10px;
+}
+
+td {
+  background-color: #CED4DA;
+  text-align: left;
+  font-size: 17px;
+  color: black;
+  padding: 10px;
+  height: 0vw;
+}
+
+.global-width{
+  max-width : 1200px;
+  margin : 0 auto;
+}
+
+table {
+  width: 100%;
+ 
+}
+tr:nth-child(even) {background-color: #ADB5BD;}
+
+.icons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.add-modal {
+  display: none;
+  background-color: white;
+  max-width: 615px;
+
+  margin: 63px auto;
+}
+
+.view-modal {
+  display: none;
+  background-color: white;
+  max-width: 615px;
+  margin-top: 30px;
+  margin: 0 auto;
+}
+
+.modal-add,
+.modal-edit-view,
+.modal-delete {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0px auto;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+.view,
+.edit,
+.delete {
+  cursor: pointer;
+}
+
+.edit-input,
+.add-input {
+  width: 240px;
+  border-radius: 7px;
+  border :solid 3px grey;
+  height: 25px;
+  font-size: 15px;
+}
+
+
+label {
+  width: max-content;
+  font-family: sans-serif;
+  
+}
+
+.close {
+  color: black;
+  float: right;
+  font-size: 32px;
+  font-weight: bold;
+  margin-right: 22px;
+  margin-top: 18px;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  margin-bottom: 68px;
+  margin: 48px auto;
+  width: 300px;
+  display: flex;
+}
+
+#modal-form {
+  padding-left: 56px;
+}
+
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 68px;
+  color: #212529;
+  font-family: sans-serif;
+}
+
+#label-add,
+#inputs-add,
+#label-edit-view,
+#inputs-edit-view {
+  display: flex;
+  flex-direction: column;
+}
+
+#label-add,
+#label-edit-view {
+  gap: 44px;
+  margin-left: -30px;
+}
+
+#inputs-add,
+#inputs-edit-view {
+  gap: 28px;
+  margin-left: 10px;
+}
+
+#table-employee-id{
+text-align: right;
+}
+
+button:hover {opacity: 0.9}
+
+.right-icon{
+  color: white;
+  background-color: #212529 !important;
+}
+
+#update-submit-button,
+#add-submit-button,#cancel-button,#edit-cancel-button {
+  text-align: center;
+  padding: 5px 12px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 50px;
+  border-radius:5px;
+  color: white;
+  background: #212529;
+  cursor: pointer;
+  border: none;
+}
+#cancel-button,#edit-cancel-button {
+
+  background-color: #888;
+}
+
+#employee-id-col {
+  text-align: right;
+}
+.button
+{display: flex;
+justify-content: center;
+gap: 30px}
+
+#update-submit-button ,#edit-cancel-button{
+  display: none;
+}
+
+.required:after {
+  content:" *";
+  color: red;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+.success-img,
+h4,
+h3 {
+  text-align: center;
+}
+
+.success-modal,
+.delete-updation {
+  background-color: white;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  max-width: 587px;
+  width: 100%;
+  margin: 130px auto;
+  overflow: auto;
+  background-color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-height: 640px;
+  line-height: 0.5px;
+}
+
+.success-modal h3 {
+  font-size: 25px;
+}
+
+.add-success-button {
+  background-color: #4fbf26;
+  border-radius: 8px;
+}
+
+.success {
+  text-align: center;
+}
+
+.buttons-confirmation {
+  text-align: center;
+}
+
+#sort-button,
+#filter-button,
+.add-button {
+  background-color: #212529;
+  color: white;
+  border-radius:8px ;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sort-dropdown,
+.filter-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.sort-dropdown-options,
+.filter-dropdown-options {
+  display: none;
+  position: absolute;
+  border-radius: 8px;
+  background-color: #212529;
+}
+.sort-dropdown-options {
+  margin-top: 1px;
+  width: max-content;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.filter-dropdown-options {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+#outer-div {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 148px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+#button {
+  padding-bottom: 5px;
+}
+
+
+#search-container-add , #search-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+#id-sort,
+#name-sort,
+#des-filter,
+#skill-filter {
+  font-weight: 600;
+  border: none;
+  background-color: #212529;
+    color: white;
+    border-radius: 8px;
+  cursor: pointer;
+}
+
+#des-filter {
+  padding-top: 9px;
+  padding-right: 98px;
+  border-radius: 8px;
+}
+
+#id-sort {
+  padding-top: 10px;
+}
+#name-sort {
+  padding-bottom: 10px;
+}
+
+#designation-container {
+  position: relative;
+  background-color: #212529;
+  border-radius:8px;
+}
+#filter-skill-search {
+  padding: 5px 5px;
+  display: none;
+  flex-wrap: wrap;
+  width: 80px;
+  overflow-y: scroll;
+  background-color: #ADB5BD;
+  border: 2px solid white;
+}
+
+#filter-skill-search::-webkit-scrollbar {
+  display: none;
+}
+
+#apply {
+  color: white;
+  display: none;
+  margin: 2px auto;
+  border: none;
+  background-color: #212529;
+}
+#apply-container {
+  background-color: #212529;
+  margin: 3px 3px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+#skill-container-add {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-bottom: 7px;
+  padding-left: 2px;
+ 
+}
+#skill-container{
+  padding-bottom: 10px;
+
+  justify-content: flex-start;
+  
+}
+
+.skill-div{
+  display: flex;
+  width: 80px;
+
+}
+.skill-div input {
+  margin-top: 0px;
+  margin-bottom:15px ;
+}
+
+
