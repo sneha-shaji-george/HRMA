@@ -1,4 +1,3 @@
-
 const fetchEmployees = () => {
   fetch("assets/data/employee.json")
     .then((response) => response.json())
@@ -6,7 +5,7 @@ const fetchEmployees = () => {
       const empDetails = data["employees"];
       localStorage.setItem("employData", JSON.stringify(empDetails));
       createTable();
-      window.location.reload()
+      window.location.reload();
     });
 };
 
@@ -31,12 +30,21 @@ const fetchDesignation = () => {
     });
 };
 
+const editInputs = document.getElementById("inputs-edit-view");
+const editEmpId = editInputs.querySelector("#empid");
+const editFirstNAme = editInputs.querySelector("#fname");
+const editLastName = editInputs.querySelector("#lname");
+const editDesignation = editInputs.querySelector("#des");
+const editDateOfBirth = editInputs.querySelector("#dob");
+const editAddress = editInputs.querySelector("#addr");
+const editEmail = editInputs.querySelector("#mail");
+const editSkills = editInputs.querySelector("#skills");
+
 function createTable() {
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   empDetails.forEach((data) => {
     addEmployeeRow(data);
   });
- 
 }
 
 function addModal() {
@@ -49,7 +57,7 @@ function addModal() {
 function closeModal() {
   const modalBox = document.querySelector(".modal-add");
   const modalDiv = modalBox.querySelector(".add-modal");
-  const addForm = document.querySelector("#add-form");fetch
+  const addForm = document.querySelector("#add-form");
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
   addForm.reset();
@@ -96,7 +104,7 @@ function getAppHeaderText() {
 function employManagementModal(target, isEdit) {
   const modalHeading = document.querySelector("#modal-heading");
   const empDetails = JSON.parse(localStorage.getItem("employData"));
-  const parent = document.getElementById("inputs-edit-view");
+  const close = document.querySelector("#edit-cancel-button");
   const submitBtn = document.querySelector("#update-submit-button");
   const modalBox = document.querySelector(".view-modal");
   const modalDiv = document.querySelector(".modal-edit-view");
@@ -105,40 +113,40 @@ function employManagementModal(target, isEdit) {
   modalDiv.style.display = "block";
   empDetails.forEach((item) => {
     if (empId == item.id) {
-      parent.querySelector("#empid").value = `${item.id}`;
-      parent.querySelector("#fname").value = `${item.firstName}`;
-      parent.querySelector("#lname").value = `${item.lastName}`;
-      parent.querySelector("#des").value = `${item.designation}`;
-      parent.querySelector("#doj").value = `${item.dateOfJoining}`;
-      parent.querySelector("#dob").value = `${item.dateOfBirth}`;
-      parent.querySelector("#addr").value = `${item.address}`;
-      parent.querySelector("#mail").value = `${item.emailId}`;
+      editEmpId.value = `${item.id}`;
+      editFirstNAme.value = `${item.firstName}`;
+      editLastName.value = `${item.lastName}`;
+      editDesignation.value = `${item.designation}`;
+      editDateOfBirth.value = `${item.dateOfBirth}`;
+      editAddress.value = `${item.address}`;
+      editEmail.value = `${item.emailId}`;
       const skillArr = [];
       item.skills.forEach((empskill) => {
         skillArr.push(empskill.skill);
-        parent.querySelector("#skills").value = skillArr;
+        editSkills.value = skillArr;
       });
     }
   });
-  parent.querySelector("#empid").readOnly = !isEdit;
-  parent.querySelector("#fname").readOnly = !isEdit;
-  parent.querySelector("#lname").readOnly = !isEdit;
-  parent.querySelector("#des").readOnly = !isEdit;
-  parent.querySelector("#doj").readOnly = !isEdit;
-  parent.querySelector("#dob").readOnly = !isEdit;
-  parent.querySelector("#addr").readOnly = !isEdit;
-  parent.querySelector("#mail").readOnly = !isEdit;
-  parent.querySelector("#skills").readOnly = !isEdit;
+  editEmpId.readOnly = !isEdit;
+  editFirstNAme.readOnly = !isEdit;
+  editLastName.readOnly = !isEdit;
+  editDesignation.readOnly = !isEdit;
+  editDateOfBirth.readOnly = !isEdit;
+  editAddress.readOnly = !isEdit;
+  editEmail.readOnly = !isEdit;
+  editSkills.readOnly = !isEdit;
 
   if (isEdit === true) {
     modalHeading.innerHTML = "Edit Employee Details";
     submitBtn.style.display = "block";
-    parent.querySelector("#skills").style.display = "none";
+    close.style.display = "block";
+    editSkills.style.display = "none";
     document.querySelector("#search-container").style.display = "flex";
   } else {
     modalHeading.innerHTML = "Employee Details";
     submitBtn.style.display = "none";
-    parent.querySelector("#skills").style.display = "block";
+    close.style.display = "none";
+    editSkills.style.display = "block";
     document.querySelector("#search-container").style.display = "none";
   }
   populateSkillCheckbox(empId);
@@ -150,11 +158,13 @@ function closeEmployeeManageModal() {
   modalBox.style.display = "none";
   modalDiv.style.display = "none";
 }
-
+//
 function generateSkillSelectionUI() {
   const skills = JSON.parse(localStorage.getItem("skills"));
   const parent = document.querySelector("#search-container");
   skills.forEach((item) => {
+    const skillDiv = document.createElement("div");
+    skillDiv.setAttribute("class", "skill-div");
     const input = document.createElement("input");
     const skillLabel = document.createElement("label");
     input.setAttribute("type", "checkbox");
@@ -162,8 +172,9 @@ function generateSkillSelectionUI() {
     input.setAttribute("name", `${item.skill}`);
     skillLabel.setAttribute("for", `${item.skill}`);
     skillLabel.innerHTML = `${item.skill}`;
-    parent.appendChild(skillLabel);
-    parent.appendChild(input);
+    skillDiv.appendChild(input);
+    skillDiv.appendChild(skillLabel); 
+    parent.appendChild(skillDiv);
   });
 }
 
@@ -171,6 +182,8 @@ function generateSkillSelectionUIOnAdd() {
   const skills = JSON.parse(localStorage.getItem("skills"));
   const parent = document.querySelector("#search-container-add");
   skills.forEach((item) => {
+    const skillDiv = document.createElement("div");
+    skillDiv.setAttribute("class", "skill-div");
     const input = document.createElement("input");
     const skillLabel = document.createElement("label");
     input.setAttribute("type", "checkbox");
@@ -178,8 +191,9 @@ function generateSkillSelectionUIOnAdd() {
     input.setAttribute("name", `${item.skill}`);
     skillLabel.setAttribute("for", `${item.skill}`);
     skillLabel.innerHTML = `${item.skill}`;
-    parent.appendChild(skillLabel);
-    parent.appendChild(input);
+    skillDiv.appendChild(input);
+    skillDiv.appendChild(skillLabel);  
+    parent.appendChild(skillDiv);
   });
 }
 
@@ -197,7 +211,8 @@ function addEmployee() {
   const firstName = parent.querySelector("#fname").value;
   const lastName = parent.querySelector("#lname").value;
   const email = parent.querySelector("#mail").value;
-  const value = validateEmployeeForm(firstName, lastName, email);
+  const designation = parent.querySelector("#des").value;
+  const value = validateEmployeeForm(firstName, lastName, email, designation);
   if (value) {
     inputAdd.forEach((tag) => {
       if (tag.checked) {
@@ -211,7 +226,6 @@ function addEmployee() {
       firstName: parent.querySelector("#fname").value,
       lastName: parent.querySelector("#lname").value,
       designation: parent.querySelector("#des").value,
-      dateOfJoining: parent.querySelector("#doj").value,
       dateOfBirth: parent.querySelector("#dob").value,
       address: parent.querySelector("#addr").value,
       emailId: parent.querySelector("#mail").value,
@@ -246,7 +260,7 @@ function addEmployeeRow(data) {
   deleteIcon.setAttribute("class", "fa fa-trash-o delete");
   deleteIcon.setAttribute("id", `deletemp${data.id}`);
   iconDiv.setAttribute("class", "icons");
-  row.innerHTML = `<td>${data.id}</td>
+  row.innerHTML = `<td id="table-employee-id">${data.id}</td>
         <td>${data.firstName} ${data.lastName}</td> 
         <td id="designation-col">${data.designation}</td>
         <td>${data.emailId}</td>`;
@@ -289,8 +303,7 @@ function showSuccessDialog(action) {
 }
 
 function saveUpdatedDetails() {
-  const parent = document.querySelector("#inputs-edit-view ");
-  const empId = +parent.querySelector("#empid").value;
+  const empId = +editEmpId.value;
   const empDetails = JSON.parse(localStorage.getItem("employData"));
   const inputAdd = document.querySelectorAll("#search-container input");
   const skills = JSON.parse(localStorage.getItem("skills"));
@@ -298,10 +311,11 @@ function saveUpdatedDetails() {
   const modalDiv = document.querySelector(".modal-edit-view");
   const action = "edit";
   const skillArr = [];
-  const firstName = parent.querySelector("#fname").value;
-  const lastName = parent.querySelector("#lname").value;
-  const email = parent.querySelector("#mail").value;
-  const value = validateEmployeeForm(firstName, lastName, email);
+  const firstName = editFirstNAme.value;
+  const lastName = editLastName.value;
+  const email = editEmail.value;
+  const designation = editDesignation.value;
+  const value = validateEmployeeForm(firstName, lastName, email, designation);
 
   if (value) {
     inputAdd.forEach((tag) => {
@@ -312,13 +326,12 @@ function saveUpdatedDetails() {
     });
     empDetails.forEach((item) => {
       if (empId === item.id) {
-        item.firstName = parent.querySelector("#fname").value;
-        item.lastName = parent.querySelector("#lname").value;
-        item.designation = parent.querySelector("#des").value;
-        item.dateOfJoining = parent.querySelector("#doj").value;
-        item.dateOfBirth = parent.querySelector("#dob").value;
-        item.address = parent.querySelector("#addr").value;
-        item.emailId = parent.querySelector("#mail").value;
+        item.firstName = editFirstNAme.value;
+        item.lastName = editLastName.value;
+        item.designation = editDesignation.value;
+        item.dateOfBirth = editDateOfBirth.value;
+        item.address = editAddress.value;
+        item.emailId = editEmail.value;
         item.skills = skillArr;
       }
     });
@@ -396,22 +409,22 @@ function deleteEmployee(id) {
   });
 }
 
-function validateEmployeeForm(firstName, lastName, email) {
+function validateEmployeeForm(firstName, lastName, email, designation) {
   const regExpEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
   const regExpName = /\d+$/g;
-  if (
-    firstName == "" ||
-    regExpName.test(firstName) ||
-    firstName.startsWith(" ")
-  ) {
+  if (firstName == "" || lastName == "" || email == "" || designation == "") {
+    window.alert("Please enter details.");
+    return false;
+  }
+  if (regExpName.test(firstName) || firstName.startsWith(" ")) {
     window.alert("Please enter valid name.");
     return false;
   }
-  if (lastName == "" || regExpName.test(lastName) || lastName.startsWith(" ")) {
+  if (regExpName.test(lastName) || lastName.startsWith(" ")) {
     window.alert("Please enter valid name.");
     return false;
   }
-  if (email == "" || !regExpEmail.test(email)) {
+  if (!regExpEmail.test(email)) {
     window.alert("Please enter a valid e-mail address.");
     return false;
   }
@@ -472,6 +485,22 @@ function generateSkillSelectionDropdown() {
       applyButton.style.display = "block";
     }
   });
+}
+function sortOnclick() {
+  const sortDiv = document.querySelector(".sort-dropdown-options");
+  if (sortDiv.style.display === "block") {
+    sortDiv.style.display = "none";
+  } else {
+    sortDiv.style.display = "block";
+  }
+}
+function filterOnclick() {
+  const filterDiv = document.querySelector(".filter-dropdown-options");
+  if (filterDiv.style.display === "block") {
+    filterDiv.style.display = "none";
+  } else {
+    filterDiv.style.display = "block";
+  }
 }
 
 function generateFilteredTable() {
@@ -559,6 +588,3 @@ window.onload = () => {
   localStorage.setItem("appName", "Human Resource Management App");
   getAppHeaderText();
 };
-
-
-fetch

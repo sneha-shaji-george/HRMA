@@ -7,21 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="assets/images/images.jpeg" type="image/x-icon">
     <title>Human Resource Management</title>
 </head>
 
 <body>
     <header>
         <div class="header-container">
-            <a href="#"><img id="logo" src="assets/images/logo.png" alt="#"></a>
         </div>
-        <span class="hamburger" style="font-size:30px;cursor:pointer">&#9776; </span>
     </header>
     <main>
+        <section class="global-width">
         <section class="employee-management">
             <div class="sort-filter">
                 <div class="sort-dropdown">
-                    <button id="sort-button">Sort By <i class="fa fa-chevron-down"></i></button>
+                    <button id="sort-button" onclick="sortOnclick()">Sort By <i class="fa fa-chevron-down"></i></button>
                     <div class="sort-dropdown-options">
                         <button id="id-sort">Employ Id</button>
                         <hr>
@@ -29,10 +29,11 @@
                     </div>
                 </div>
                 <div class="filter-dropdown">
-                    <button id="filter-button">Filter By<i class="fa fa-chevron-down"></i></button>
+                    <button id="filter-button" onclick="filterOnclick()">Filter By <i class="fa fa-chevron-down"></i></button>
                     <div class="filter-dropdown-options">
                         <div id="designation-container">
                             <button id="des-filter">Skill</button>
+                            <i class='right-icon fa fa-angle-right ' style='font-size:16px'></i>
                             <div id="outer-div">
                                 <div id="filter-skill-search"></div>
                                 <div id="apply-container"><button id="apply" type="submit">Apply</button></div>
@@ -59,8 +60,8 @@
             <table id="empTable">
                 <thead>
                     <tr>
-                        <th>Employee Id</th>
-                        <th>Name</th>
+                        <th>Employ Id</th>
+                        <th>Employ Name</th>
                         <th>Designation</th>
                         <th>Email</th>
                         <th>Skills</th>
@@ -70,19 +71,19 @@
                 <tbody id="table-body"></tbody>
             </table>
         </section>
+    </section>
         <section class="modal-add">
             <div class="add-modal">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Add Employee</h2>
                 <form id="add-form">
                     <div id="label-add">
-                        <label for="fname">First name:</label>
-                        <label for="lname">Last name:</label>
-                        <label for="des">Designation:</label>
-                        <label for="doj">Date Of Joining:</label>
-                        <label for="addr">Address:</label>
-                        <label for="dob">Date Of Birth:</label>
-                        <label for="mail">Email:</label>
+                        <label class= "required l" for="fname">First name:</label>
+                        <label class= "required" for="lname">Last name:</label>
+                        <label class= "required" for="des">Designation:</label>
+                        <label  for="addr">Address:</label>
+                        <label  for="dob">Date Of Birth:</label>
+                        <label class= "required" for="mail">Email:</label>
                         <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-add">
@@ -90,7 +91,6 @@
                         <input type="text" class="add-input" id="lname" name="lname" autocomplete="off">
                         <input type="text" class="add-input" id="des" list="des-suggestions" name="des"
                             autocomplete="off">
-                        <input type="date" class="add-input" id="doj" name="doj" autocomplete="off">
                         <input type="text" class="add-input" id="addr" name="addr" autocomplete="off">
                         <input type="date" class="add-input" id="dob" name="dob" autocomplete="off">
                         <input type="email" class="add-input" id="mail" name="mail" autocomplete="off">
@@ -103,7 +103,10 @@
                         <option value="Architect">
                     </datalist>
                 </form>
+                <div class="button">
+                <button id="cancel-button" onclick="closeModal()">Cancel</button>
                 <button id="add-submit-button" type="submit" form="update-form" value="Submit">ADD</button>
+            </div>
             </div>
         </section>
         <section class="modal-edit-view">
@@ -112,11 +115,10 @@
                 <h2 id="modal-heading"></h2>
                 <form id="modal-form">
                     <div id="label-edit-view">
-                        <label for="id">Employee Id:</label>
-                        <label for="fname">First name:</label>
-                        <label for="lname">Last name:</label>
+                        <label  for="id">Employee Id:</label>
+                        <label  for="fname">First name:</label>
+                        <label  for="lname">Last name:</label>
                         <label for="des">Designation:</label>
-                        <label for="doj">Date Of Joining:</label>
                         <label for="addr">Address:</label>
                         <label for="dob">Date Of Birth:</label>
                         <label for="mail">Email:</label>
@@ -128,7 +130,6 @@
                         <input type="text" class="edit-input" id="lname" name="lname" autocomplete="off">
                         <input type="text" class="edit-input" list="des-suggestions" id="des" name="des"
                             autocomplete="off">
-                        <input type="text" class="edit-input" id="doj" name="doj" autocomplete="off">
                         <input type="text" class="edit-input" id="addr" name="addr" autocomplete="off">
                         <input type="text" class="edit-input" id="dob" name="dob" autocomplete="off">
                         <input type="email" class="edit-input" id="mail" name="mail" autocomplete="off">
@@ -137,7 +138,8 @@
                         </div>
                     </div>
                 </form>
-                <div id="button">
+                <div class="button">
+                    <button id="edit-cancel-button" onclick="closeEmployeeManageModal()">Cancel</button>
                     <button id="update-submit-button" type="submit" form="update-form" value="Submit"
                         onclick="saveUpdatedDetails()">Save Changes</button>
                 </div>
