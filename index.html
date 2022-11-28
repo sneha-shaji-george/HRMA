@@ -60,8 +60,8 @@
             <table id="empTable">
                 <thead>
                     <tr>
-                        <th>Employ Id</th>
-                        <th>Employ Name</th>
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
                         <th>Designation</th>
                         <th>Email</th>
                         <th>Skills</th>
@@ -78,7 +78,7 @@
                 <h2>Add Employee</h2>
                 <form id="add-form">
                     <div id="label-add">
-                        <label class= "required l" for="fname">First name:</label>
+                        <label class= "required" for="fname">First name:</label>
                         <label class= "required" for="lname">Last name:</label>
                         <label class= "required" for="des">Designation:</label>
                         <label  for="addr">Address:</label>
@@ -116,13 +116,13 @@
                 <form id="modal-form">
                     <div id="label-edit-view">
                         <label  for="id">Employee Id:</label>
-                        <label  for="fname">First name:</label>
-                        <label  for="lname">Last name:</label>
-                        <label for="des">Designation:</label>
-                        <label for="addr">Address:</label>
-                        <label for="dob">Date Of Birth:</label>
-                        <label for="mail">Email:</label>
-                        <label for="skills">Skills:</label>
+                        <label  class="required-label" for="fname">First name:</label>
+                        <label  class="required-label" for="lname">Last name:</label>
+                        <label  for="des">Designation:</label>
+                        <label  for="addr">Address:</label>
+                        <label  for="dob">Date Of Birth:</label>
+                        <label class= "required-label" for="mail">Email:</label>
+                        <label  for="skills">Skills:</label>
                     </div>
                     <div id="inputs-edit-view">
                         <input type="number" class="edit-input" id="empid" name="empid" autocomplete="off">
@@ -146,8 +146,8 @@
             </div>
         </section>
         <div class="success-modal">
-            <div class="success-img"><img src="assets/images/icons8-ok-48.png"></div>
-            <h3>Successfully</h3>
+            <div class="success-img"><img src="assets\images\icons8-ok.svg"></div>
+            <h3></h3>
             <h4 id="success-msg"></h4>
             <div class="success">
                 <button class="add-success-button" type="submit" form="update-form" value="Submit"
