@@ -1,474 +1,442 @@
 body {
-    margin: 0px;
-    background-color: #ADB5BD;
+  margin: 0px;
+  background-color: #adb5bd;
 }
 
 header {
-    background-color: #212529;
-    border-bottom: 2px solid #00000030;
-    box-shadow: 0 0 5px 2px #00000030;
-    padding-left: 21px;
-}
-
-.hamburger {
-    padding-left: calc(100% - 580px);
-    padding-top: 39px;
-}
-
-#logo {
-    background-color: #CED4DA;
-    padding-top: 20px;
-    padding-left: 21px;
+  background-color: #212529;
+  border-bottom: 2px solid #00000030;
+  box-shadow: 0 0 5px 2px #00000030;
+  padding-left: 21px;
 }
 
 #skills {
-    display: none;
+  display: none;
 }
 
 main {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 h1 {
-    padding: 50px 50px;
-    text-align: center;
-    color: #CED4DA;
-    margin: 0 0;
-    font-size: 40px;
-    font-family: sans-serif;
+  padding: 50px 50px;
+  text-align: center;
+  color: #ced4da;
+  margin: 0 0;
+  font-size: 40px;
+  font-family: sans-serif;
 }
 
 .employee-management {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
 }
 
 th {
-    background-color: #212529;
-    text-align: center;
-    font-size: 18px;
-    font-family: sans-serif;
-    color: white;
-    padding: 10px;
+  background-color: #212529;
+  text-align: center;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: white;
+  padding: 10px;
 }
 
 td {
-    background-color: #CED4DA;
-    text-align: left;
-    font-size: 17px;
-    color: black;
-    padding: 10px;
-    height: 0vw;
+  background-color: #ced4da;
+  text-align: left;
+  font-size: 17px;
+  color: black;
+  padding: 10px;
+  height: 0vw;
 }
 
 .global-width {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 table {
-    width: 100%;
-}
-
-tr:nth-child(even) {
-    background-color: #ADB5BD;
+  width: 100%;
 }
 
 .icons {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-between;
 }
 
 .add-modal,
 .view-modal {
-    display: none;
-    background-color: white;
-    max-width: 615px;
-    margin: 63px auto;
+  display: none;
+  background-color: white;
+  max-width: 615px;
+  margin: 63px auto;
 }
-
-
-/* .view-modal {
-    display: none;
-    background-color: white;
-    max-width: 615px;
-    margin-top: 30px;
-    margin: 0 auto;
-} */
 
 .modal-add,
 .modal-edit-view,
 .modal-delete {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0px auto;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0px auto;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .yes-button {
-    background-color: #FF0000;
+  background-color: #ff0000;
 }
 
 .yes-button,
 .no-button {
-    border-radius: 10px;
-    border: none;
-    padding: 5px 10px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    text-transform: uppercase;
-    font-family: sans-serif;
+  border-radius: 10px;
+  border: none;
+  padding: 5px 10px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: sans-serif;
 }
 
 .yes-button:hover,
 .no-button:hover {
-    opacity: 0.9
+  opacity: 0.9;
 }
 
 .view,
 .edit,
 .delete {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .edit-input,
 .add-input,
 #skills {
-    width: 240px;
-    border-radius: 7px;
-    border: solid 3px grey;
-    height: 25px;
-    font-size: 15px;
+  width: 240px;
+  border-radius: 7px;
+  border: solid 3px grey;
+  height: 25px;
+  font-size: 15px;
 }
 
 label {
-    width: max-content;
-    font-family: sans-serif;
+  width: max-content;
+  font-family: sans-serif;
 }
 
 .close {
-    color: black;
-    float: right;
-    font-size: 32px;
-    font-weight: bold;
-    margin-right: 22px;
-    margin-top: 18px;
+  color: black;
+  float: right;
+  font-size: 32px;
+  font-weight: bold;
+  margin-right: 22px;
+  margin-top: 18px;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 form {
-    margin-bottom: 68px;
-    margin: 48px auto;
-    width: 300px;
-    display: flex;
+  margin-bottom: 68px;
+  margin: 48px auto;
+  width: 300px;
+  display: flex;
 }
 
 #modal-form {
-    padding-left: 56px;
+  padding-left: 56px;
 }
 
 h2 {
-    text-align: center;
-    text-transform: uppercase;
-    padding-top: 68px;
-    color: #212529;
-    font-family: sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 68px;
+  color: #212529;
+  font-family: sans-serif;
 }
 
 #label-add,
 #inputs-add,
 #label-edit-view,
 #inputs-edit-view {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #label-add,
 #label-edit-view {
-    gap: 44px;
-    margin-left: -30px;
+  gap: 44px;
+  margin-left: -30px;
 }
 
 #inputs-add,
 #inputs-edit-view {
-    gap: 28px;
-    margin-left: 10px;
+  gap: 28px;
+  margin-left: 10px;
 }
 
 #table-employee-id {
-    text-align: right;
+  text-align: right;
 }
 
 button:hover {
-    opacity: 0.9
+  opacity: 0.9;
 }
 
 button {
-    border: none
+  border: none;
 }
 
 .right-icon {
-    color: white;
-    background-color: #212529 !important;
+  color: white;
+  background-color: #212529;
 }
 
 #update-submit-button,
 #add-submit-button,
 #cancel-button,
 #edit-cancel-button {
-    text-align: center;
-    padding: 5px 12px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 50px;
-    border-radius: 5px;
-    color: white;
-    background: #212529;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 5px 12px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#update-submit-button,
+#add-submit-button {
+  background-color: #212529;
 }
 
 #cancel-button,
 #edit-cancel-button {
-    background-color: #888;
+  background-color: #888;
 }
 
 #employee-id-col {
-    text-align: right;
+  text-align: right;
 }
 
 .button {
-    display: flex;
-    justify-content: center;
-    gap: 30px
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 
 #update-submit-button,
 #edit-cancel-button {
-    display: none;
+  display: none;
 }
 
 .required:after {
-    content: "*";
-    color: red;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+  content: "*";
+  color: red;
 }
 
 .success-img,
 h4,
 h3 {
-    text-align: center;
+  text-align: center;
 }
 
 .success-modal,
 .delete-updation {
-    background-color: white;
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    right: 0;
-    max-width: 587px;
-    width: 100%;
-    margin: 130px auto;
-    overflow: auto;
-    background-color: white;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    max-height: 640px;
-    line-height: 1.5px;
-    border-radius: 8px;
-    padding: 40px 0px;
+  background-color: white;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  right: 0;
+  max-width: 587px;
+  width: 100%;
+  margin: 130px auto;
+  overflow: auto;
+  max-height: 640px;
+  line-height: 1.5px;
+  border-radius: 8px;
+  padding: 40px 0px;
 }
 
 .delete-updation h3 {
-    font-family: sans-serif;
-    padding-bottom: 14px;
+  font-family: sans-serif;
+  padding-bottom: 14px;
 }
 
 .success-modal h3 {
-    font-size: 25px;
-    font-family: sans-serif;
+  font-size: 25px;
+  font-family: sans-serif;
 }
 
 .add-success-button {
-    background-color: #98C900;
-    border-radius: 10px;
-    border: none;
-    padding: 5px 10px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+  background-color: #98c900;
+  border-radius: 10px;
+  border: none;
+  padding: 5px 10px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 #success-msg {
-    font-family: sans-serif;
-    font-weight: 100;
+  font-family: sans-serif;
+  font-weight: 100;
 }
 
-.success {
-    text-align: center;
-}
-
+.success,
 .buttons-confirmation {
-    text-align: center;
+  text-align: center;
 }
 
 #sort-button,
 #filter-button,
 .add-button {
-    background-color: #212529;
-    color: white;
-    border-radius: 8px;
-    padding: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+  background-color: #212529;
+  color: white;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .sort-dropdown,
 .filter-dropdown {
-    display: inline-block;
-    position: relative;
+  display: inline-block;
+  position: relative;
 }
 
 .sort-dropdown-options,
 .filter-dropdown-options {
-    display: none;
-    position: absolute;
-    border-radius: 8px;
-    background-color: #212529;
+  display: none;
+  margin-top: 1px;
+  position: absolute;
+  border-radius: 8px;
+  background-color: #212529;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .sort-dropdown-options {
-    margin-top: 1px;
-    width: max-content;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.filter-dropdown-options {
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+  width: max-content;
 }
 
 #outer-div {
-    position: absolute;
-    top: 0;
-    left: 148px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 148px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 #button {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 #search-container-add,
 #search-container {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #id-sort,
 #name-sort,
 #des-filter,
 #skill-filter {
-    font-weight: 600;
-    border: none;
-    background-color: #212529;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
+  font-weight: 600;
+  border: none;
+  background-color: #212529;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 #des-filter {
-    padding-top: 9px;
-    padding-right: 98px;
-    border-radius: 8px;
+  padding-top: 9px;
+  padding-right: 98px;
+  border-radius: 8px;
 }
 
 #id-sort {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 #name-sort {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 #designation-container {
-    position: relative;
-    background-color: #212529;
-    border-radius: 8px;
+  position: relative;
+  background-color: #212529;
+  border-radius: 8px;
 }
 
 #filter-skill-search {
-    padding: 5px 5px;
-    display: none;
-    flex-wrap: wrap;
-    width: 80px;
-    overflow-y: scroll;
-    background-color: #ADB5BD;
-    border: 2px solid white;
+  padding: 5px 5px;
+  display: none;
+  flex-wrap: wrap;
+  width: 80px;
+  overflow-y: scroll;
+  background-color: #adb5bd;
+  border: 2px solid white;
 }
 
 #filter-skill-search::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 #apply {
-    color: white;
-    display: none;
-    margin: 2px auto;
-    border: none;
-    background-color: #212529;
-    cursor: pointer;
+  color: white;
+  display: none;
+  margin: 2px auto;
+  border: none;
+  background-color: #212529;
+  cursor: pointer;
 }
 
 #apply-container {
-    background-color: #212529;
-    margin: 3px 3px;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  background-color: #212529;
+  margin: 3px 3px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 #skill-container-add {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-bottom: 7px;
-    padding-left: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-bottom: 7px;
+  padding-left: 2px;
 }
 
 #skill-container {
-    padding-bottom: 10px;
-    justify-content: flex-start;
+  padding-bottom: 10px;
+  justify-content: flex-start;
 }
 
 .skill-div {
-    display: flex;
-    width: 80px;
+  display: flex;
+  width: 80px;
 }
 
 .skill-div input {
-    margin-top: 0px;
-    margin-bottom: 15px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+#error-msg {
+  display: none;
 }
