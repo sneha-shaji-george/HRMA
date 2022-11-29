@@ -18,72 +18,78 @@
     </header>
     <main>
         <section class="global-width">
-        <section class="employee-management">
-            <div class="sort-filter">
-                <div class="sort-dropdown">
-                    <button id="sort-button" onclick="sortOnclick()">Sort By <i class="fa fa-chevron-down"></i></button>
-                    <div class="sort-dropdown-options">
-                        <button id="id-sort">Employ Id</button>
-                        <hr>
-                        <button id="name-sort">Employ Name</button>
+            <section class="employee-management">
+                <div class="sort-filter">
+                    <div class="sort-dropdown">
+                        <button id="sort-button" onclick="sortOnclick()">Sort By <i
+                                class="fa fa-chevron-down"></i></button>
+                        <div class="sort-dropdown-options">
+                            <button id="id-sort" onclick="sortEmployeeById()">Employee Id</button>
+                            <hr>
+                            <button id="name-sort" onclick="sortEmployeeByName()">Employee Name</button>
+                        </div>
                     </div>
-                </div>
-                <div class="filter-dropdown">
-                    <button id="filter-button" onclick="filterOnclick()">Filter By <i class="fa fa-chevron-down"></i></button>
-                    <div class="filter-dropdown-options">
-                        <div id="designation-container">
-                            <button id="des-filter">Skill</button>
-                            <i class='right-icon fa fa-angle-right ' style='font-size:16px'></i>
-                            <div id="outer-div">
-                                <div id="filter-skill-search"></div>
-                                <div id="apply-container"><button id="apply" type="submit">Apply</button></div>
-                                
+                    <div class="filter-dropdown">
+                        <button id="filter-button" onclick="filterOnclick()">Filter By <i
+                                class="fa fa-chevron-down"></i></button>
+                        <div class="filter-dropdown-options">
+                            <div id="designation-container">
+                                <button id="des-filter">Skill</button>
+                                <i class='right-icon fa fa-angle-right ' style='font-size:16px'></i>
+                                <div id="outer-div">
+                                    <div id="filter-skill-search"></div>
+                                    <div id="apply-container"><button id="apply" type="submit">Apply</button></div>
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div id="skill-container">
+                                <select id="skill-filter">
+                                    <option value="none" selected>
+                                        Designation
+                                    </option>
+                                </select>
+
                             </div>
                         </div>
-                        <hr>
-                        <div id="skill-container">
-                            <select id="skill-filter">
-                                <option value="none" selected>
-                                    Designation
-                                </option>
-                            </select>
-
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="add">
-                <button class="add-button" type="button" onclick="addModal()">Add <i class="fa fa-plus"></i></button>
-            </div>
+                <div class="add">
+                    <button class="add-button" type="button" onclick="addModal()">Add <i
+                            class="fa fa-plus"></i></button>
+                </div>
+            </section>
+            <section class="employee-table">
+                <table id="empTable">
+                    <thead>
+                        <tr>
+                            <th>Employee Id</th>
+                            <th>Employee Name</th>
+                            <th>Designation</th>
+                            <th>Email</th>
+                            <th>Skills</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+                <div id="error-msg">
+                    <h2>No Employee Found</h2>
+                </div>
+            </section>
         </section>
-        <section class="employee-table">
-            <table id="empTable">
-                <thead>
-                    <tr>
-                        <th>Employee Id</th>
-                        <th>Employee Name</th>
-                        <th>Designation</th>
-                        <th>Email</th>
-                        <th>Skills</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="table-body"></tbody>
-            </table>
-        </section>
-    </section>
         <section class="modal-add">
             <div class="add-modal">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Add Employee</h2>
                 <form id="add-form">
                     <div id="label-add">
-                        <label class= "required" for="fname">First name:</label>
-                        <label class= "required" for="lname">Last name:</label>
-                        <label class= "required" for="des">Designation:</label>
-                        <label  for="addr">Address:</label>
-                        <label  for="dob">Date Of Birth:</label>
-                        <label class= "required" for="mail">Email:</label>
+                        <label class="required" for="fname">First name:</label>
+                        <label class="required" for="lname">Last name:</label>
+                        <label class="required" for="des">Designation:</label>
+                        <label for="addr">Address:</label>
+                        <label for="dob">Date Of Birth:</label>
+                        <label class="required" for="mail">Email:</label>
                         <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-add">
@@ -92,7 +98,8 @@
                         <input type="text" class="add-input" id="des" list="des-suggestions" name="des"
                             autocomplete="off">
                         <input type="text" class="add-input" id="addr" name="addr" autocomplete="off">
-                        <input type="date" class="add-input" id="dob" name="dob" autocomplete="off">
+                        <input type="date" class="add-input" id="dob" name="dob" autocomplete="off" min="1950-01-01"
+                            max="2003-01-01">
                         <input type="email" class="add-input" id="mail" name="mail" autocomplete="off">
                         <div id="search-container-add">
                         </div>
@@ -104,9 +111,9 @@
                     </datalist>
                 </form>
                 <div class="button">
-                <button id="cancel-button" onclick="closeModal()">Cancel</button>
-                <button id="add-submit-button" type="submit" form="update-form" value="Submit">ADD</button>
-            </div>
+                    <button id="cancel-button" onclick="closeModal()">Cancel</button>
+                    <button id="add-submit-button" type="submit" form="update-form" value="Submit">ADD</button>
+                </div>
             </div>
         </section>
         <section class="modal-edit-view">
@@ -115,14 +122,14 @@
                 <h2 id="modal-heading"></h2>
                 <form id="modal-form">
                     <div id="label-edit-view">
-                        <label  for="id">Employee Id:</label>
-                        <label  class="required-label" for="fname">First name:</label>
-                        <label  class="required-label" for="lname">Last name:</label>
-                        <label  for="des">Designation:</label>
-                        <label  for="addr">Address:</label>
-                        <label  for="dob">Date Of Birth:</label>
-                        <label class= "required-label" for="mail">Email:</label>
-                        <label  for="skills">Skills:</label>
+                        <label for="id">Employee Id:</label>
+                        <label class="required-label" for="fname">First name:</label>
+                        <label class="required-label" for="lname">Last name:</label>
+                        <label for="des">Designation:</label>
+                        <label for="addr">Address:</label>
+                        <label for="dob">Date Of Birth:</label>
+                        <label class="required-label" for="mail">Email:</label>
+                        <label for="skills">Skills:</label>
                     </div>
                     <div id="inputs-edit-view">
                         <input type="number" class="edit-input" id="empid" name="empid" autocomplete="off">
